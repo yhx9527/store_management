@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
+import Login from './views/Login.vue'
 
 Vue.use(Router)
 
@@ -8,10 +9,45 @@ export default new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
+      {
+          path: '/',
+          name: 'login',
+          component: Login
+      },
     {
       path: '/',
-      name: 'home',
-      component: Home
+      component: Home,
+        children: [
+            {
+              path: '/product',
+                component: ()=>import('./views/Product.vue')
+            },
+            {
+                path: '/produce',
+                component: ()=>import('./views/Produce.vue')
+            },
+            {
+                path: '/output',
+                component: ()=>import('./views/Output.vue')
+            },
+            {
+                path: '/userinfo',
+                component: ()=>import('./views/UserInfo.vue')
+            },
+            {
+                path: '/fileout',
+                component: ()=>import('./views/FileOut.vue')
+            },
+            {
+                path: '/fileinproduce',
+                component: ()=>import('./views/FileInProduce.vue')
+            },
+            {
+                path: '/fileinproduct',
+                component: ()=>import('./views/FileInProduct.vue')
+            }
+        ]
+
     },
     {
       path: '/about',
