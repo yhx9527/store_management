@@ -16,6 +16,7 @@
 
 <script>
     import LoginForm from '../components/LoginForm.vue'
+
     export default {
         components: {
             LoginForm
@@ -32,7 +33,13 @@
                 let data = await this.$apis.user_login(form)
                 this.loading = false
                 if (data) {
-                    this.$router.push({path: 'product'})
+                    this.$store.commit('setToken', data.token)
+                    this.$store.commit({
+                        type: 'setUserInfo',
+                        userInfo: data.userInfo
+                    })
+                    this.$cookie.set('token', data.token, 0.5)
+                    this.$router.replace({path: 'product'})
                 }
                 console.log('login', data)
             }

@@ -14,19 +14,19 @@
     <img alt="Vue logo" src="../assets/logo.png">
     <HelloWorld msg="Welcome to Your Vue.js App"/>
   </div-->
-  <el-container>
+  <el-container style="height: 100vh;">
     <el-header>
       <el-row>
         <el-col :span="12"><div style="text-align: left;font-weight: bold;font-size: 24px;">仓库后台管理系统</div></el-col>
         <el-col :span="12">
           <div style="text-align: right">
             <span>管理员</span>
-            <el-dropdown>
+            <el-dropdown @command="handleCommand">
               <i class="el-icon-setting" style="margin-left: 5px;font-size: 20px;"></i>
               <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item>门户网站</el-dropdown-item>
-                <el-dropdown-item>修改密码</el-dropdown-item>
-                <el-dropdown-item>登出</el-dropdown-item>
+                <el-dropdown-item command="Index">门户网站</el-dropdown-item>
+                <el-dropdown-item command="Pwd">修改密码</el-dropdown-item>
+                <el-dropdown-item command="Logout">登出</el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
           </div></el-col>
@@ -81,6 +81,21 @@ export default {
         };
         return {
             tableData: Array(20).fill(item)
+        }
+    },
+    methods: {
+        handleCommand(command) {
+            switch(command) {
+                case 'Index':
+                    break
+                case 'Pwd':
+                    break
+                case 'Logout':
+                    this.$cookie.erase('token')
+                    this.$store.commit('clear')
+                    this.$router.replace({name: 'login'})
+                    break
+            }
         }
     }
 }

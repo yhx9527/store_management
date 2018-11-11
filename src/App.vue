@@ -27,4 +27,9 @@
     }
   }
 }
+.m-pagi{
+  text-align: right;
+  margin-top: 30px;
+  margin-right: 10px;
+}
 </style>
