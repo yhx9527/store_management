@@ -8,6 +8,10 @@
   .el-aside {
     color: #333;
   }
+  .row-bar{
+    padding-left: 10px;
+    padding-top: 10px;
+  }
 </style>
 <template>
   <!--div class="home">
@@ -38,25 +42,30 @@
       <el-menu :default-openeds="['1']" default-active="product" router>
         <el-submenu index="1">
           <template slot="title"><i class="el-icon-goods"></i>产品管理</template>
-            <el-menu-item index="product">所有产品</el-menu-item>
-            <el-menu-item index="fileinproduct">导入产品文件</el-menu-item>
+            <el-menu-item index="/product">所有产品</el-menu-item>
+            <el-menu-item index="/product/filein">导入产品文件</el-menu-item>
         </el-submenu>
         <el-submenu index="2">
           <template slot="title"><i class="el-icon-time"></i>进度管理</template>
-            <el-menu-item index="produce">进度列表</el-menu-item>
-            <el-menu-item index="fileinproduce">导入进度文件</el-menu-item>
+            <el-menu-item index="/produce">进度列表</el-menu-item>
+            <el-menu-item index="/produce/filein">导入进度文件</el-menu-item>
         </el-submenu>
         <el-submenu index="3">
           <template slot="title"><i class="el-icon-document"></i>产值管理</template>
-            <el-menu-item index="output">所有产值</el-menu-item>
-            <el-menu-item index="fileout">导出产值文件</el-menu-item>
+            <el-menu-item index="/output">所有产值</el-menu-item>
+            <el-menu-item index="/output/fileout">导出产值文件</el-menu-item>
         </el-submenu>
-          <el-menu-item index="userinfo"><i class="el-icon-view"></i>所有用户</el-menu-item>
+          <el-menu-item index="/userinfo"><i class="el-icon-view"></i>所有用户</el-menu-item>
       </el-menu>
     </el-aside>
-
-      <el-main>
-        <router-view></router-view>
+      <el-main style="padding:0">
+        <!--el-breadcrumb separator-class="el-icon-arrow-right" class="row-bar">
+          <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+          <el-breadcrumb-item>活动管理</el-breadcrumb-item>
+          <el-breadcrumb-item>活动列表</el-breadcrumb-item>
+          <el-breadcrumb-item>活动详情</el-breadcrumb-item>
+        </el-breadcrumb-->
+        <router-view style="padding:20px"></router-view>
       </el-main>
     </el-container>
   </el-container>
@@ -97,6 +106,9 @@ export default {
                     break
             }
         }
+    },
+    mounted(){
+      console.log('路由', this.$route)
     }
 }
 </script>

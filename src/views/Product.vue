@@ -5,7 +5,7 @@
     <div>
         <el-row type="flex" style="margin-bottom: 30px;">
             <el-col :span="8" style="text-align: left">
-                <el-button type="primary">添加产品<i class="el-icon-circle-plus el-icon--right"></i></el-button>
+                <el-button type="primary" @click="handleForm">添加产品<i class="el-icon-circle-plus el-icon--right"></i></el-button>
             </el-col>
             <el-col :span="12" :offset="4">
                 <el-autocomplete
@@ -162,6 +162,9 @@
                 let data = await this.$apis.product_detail(e.productId)
 
             },
+            handleEdit(index, row){
+                this.$router.push({name: 'productForm', params: {productId: row.productId}})
+            },
             async handleDelete(index, row){
                 let temp = [row.productId]
                 let data = await this.$apis.product_delete(temp)
@@ -208,6 +211,9 @@
             selectName(item){
                 this.pageName = item.value
                 this.cutPage()
+            },
+            handleForm(){
+                this.$router.push({name: 'productForm'})
             }
         },
         watch: {

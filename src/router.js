@@ -12,7 +12,7 @@ const router = new Router({
   base: process.env.BASE_URL,
   routes: [
       {
-          path: '/',
+          path: '/login',
           name: 'login',
           component: Login
       },
@@ -24,31 +24,44 @@ const router = new Router({
         },
         children: [
             {
-              path: '/product',
+              path: '/(product)?',
+                name: 'product',
                 component: ()=>import('./views/Product.vue')
             },
             {
+                path: '/product/form/:productId?',
+                name: 'productForm',
+                props:true,
+                component: ()=>import('./components/ProductForm.vue')
+            },
+            {
+                path: '/userinfo/form/:userInfoId?',
+                name: 'userForm',
+                component: ()=>import('./components/UserForm.vue')
+            },
+            {
                 path: '/produce',
+                name: 'produce',
                 component: ()=>import('./views/Produce.vue')
             },
             {
                 path: '/output',
+                name: 'output',
                 component: ()=>import('./views/Output.vue')
             },
             {
                 path: '/userinfo',
+                name: 'userinfo',
                 component: ()=>import('./views/UserInfo.vue')
             },
             {
-                path: '/fileout',
+                path: '/output/fileout',
+                name: 'output-fileout',
                 component: ()=>import('./views/FileOut.vue')
             },
             {
-                path: '/fileinproduce',
-                component: ()=>import('./views/FileInProduce.vue')
-            },
-            {
-                path: '/fileinproduct',
+                path: '/:name/filein',
+                name: 'filein',
                 component: ()=>import('./views/FileInProduct.vue')
             }
         ]
