@@ -2,15 +2,18 @@
     <div>
         <el-card style="width: 50vw;margin:auto;margin-top: 30px;" shadow="hover">
             <h2 slot="header">{{ifadd ? '添加用户信息' : '更新用户信息'}}</h2>
-            <el-form :model="userInfoForm" status-icon :rules="rules" ref="productForm" label-width="100px" class="demo-ruleForm">
-                <el-form-item label="用户名" prop="userInfoName" :disabled="!ifadd">
-                    <el-input v-model="userInfoForm.userInfoName"></el-input>
+            <el-form :model="userInfoForm" status-icon :rules="rules" ref="userInfoForm" label-width="100px" class="demo-ruleForm">
+                <el-form-item label="用户名" prop="userInfoName" >
+                    <el-input v-model="userInfoForm.userInfoName" :disabled="!ifadd"></el-input>
                 </el-form-item>
                 <el-form-item label="真实性名" prop="userInfoTrueName">
                     <el-input v-model="userInfoForm.userInfoTrueName"></el-input>
                 </el-form-item>
-                <el-form-item label="用户密码" prop="userInfoPass" >
-                    <el-input v-model="userInfoForm.userInfoPass" placeholder="请输入密码" :type="!ifadd ? 'password': 'text'"></el-input>
+                <el-form-item label="是否查封" prop="userInfoIsLocked" v-if="!ifadd" style="text-align: left;">
+                    <el-switch v-model="userInfoForm.userInfoIsLocked"></el-switch>
+                </el-form-item>
+                <el-form-item label="用户密码" prop="userInfoPass" v-if="ifadd">
+                    <el-input v-model="userInfoForm.userInfoPass" placeholder="请输入密码" ></el-input>
                 </el-form-item>
                 <el-form-item label="用户权限" prop="userInfoRoles">
                     <el-select v-model="userInfoForm.userInfoRoles" placeholder="请选择用户权限" style="float: left;">
@@ -20,8 +23,8 @@
                     </el-select>
                 </el-form-item>
                 <el-form-item style="text-align: left;">
-                    <el-button :type="ifadd ? 'primary' : 'warning'" @click="submitForm('productForm')">{{ifadd ? '立即添加' : '确认修改'}}</el-button>
-                    <el-button @click="resetForm('productForm')">重置</el-button>
+                    <el-button :type="ifadd ? 'primary' : 'warning'" @click="submitForm('userInfoForm')">{{ifadd ? '立即添加' : '确认修改'}}</el-button>
+                    <el-button @click="resetForm('userInfoForm')" :type="ifadd ? '' : 'danger'">{{ifadd ? '重置' : '重置密码'}}</el-button>
                 </el-form-item>
             </el-form>
         </el-card>
@@ -49,7 +52,8 @@
                     userInfoName: '',
                     userInfoTrueName: '',
                     userInfoPass: '123456',
-                    userInfoRoles: ''
+                    userInfoRoles: '',
+                    userInfoIsLocked: false
                 },
                 rules: {
                     userInfoName: [
@@ -72,6 +76,9 @@
         methods: {
             submitForm(formName) {
                 let that = this
+                if(!this.ifadd){
+                    this.rules.userInfoName[1].validator=''
+                }
                 this.$refs[formName].validate(async (valid) => {
                     console.log(valid)
                     if (valid) {
@@ -81,7 +88,9 @@
                                 that.resetForm(formName)
                             }
                         } else {
-                            let data = await that.$apis.add_update(that.userInfoForm)
+                            let form = JSON.parse(JSON.stringify(that.userInfoForm))
+                            form.userInfoIsLocked = Number(form.userInfoIsLocked)
+                            let data = await that.$apis.user_update(form)
                             if(data){
                                 Object.assign(that.userInfoForm, data)
                             }
@@ -93,7 +102,11 @@
                 });
             },
             resetForm(formName) {
-                this.$refs[formName].resetFields();
+                if(this.ifadd){
+                    this.$refs[formName].resetFields();
+                }else{
+                    this.userInfoForm.userInfoPass = 123456
+                }
             }
         },
         async mounted(){
@@ -102,7 +115,9 @@
                 this.ifadd = false
                // console.log('cehsi ',this,this.userInfoId,this.userInfo)
                 //let data = await this.$apis.product_detail(temp[3])
-                Object.assign(this.userInfoForm, this.$route.params.userInfo)
+                let userInfo = this.$route.params.userInfo
+                userInfo.userInfoIsLocked = Boolean(userInfo.userInfoIsLocked)
+                Object.assign(this.userInfoForm, userInfo)
             }
         }
     }

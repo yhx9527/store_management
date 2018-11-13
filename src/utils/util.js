@@ -11,7 +11,34 @@ function roleTrans(data) {
         return roles.get(item)
     }).join(',')
 }
+function doProduce(data=[]) {
+    let i=0
+    while(i<data.length){
+        let item = data[i]
+        if(i % 2 === 0){
+            let temp = {produceProductName: '备注',
+                produceXiadan: item['produceXiadan'+'Comment'],
+                produceMugong: item['produceMugong'+'Comment'],
+                produceYoufang: item['produceYoufang'+'Comment'],
+                produceBaozhuang: item['produceBaozhuang'+'Comment'],
+                produceBeijing: item['produceBeijing'+'Comment'],
+                produceTeding: item['produceTeding'+'Comment'],
+                produceBeijingteding: item['produceBeijingteding'+'Comment'],
+                produceBendihetong: item['produceBendihetong'+'Comment'],
+                produceWaidihetong: item['produceWaidihetong'+'Comment'],
+                produceDeng: item['produceDeng' + 'Comment'],
+                index: i}
+            item.updateTime=dateParse(item.produceUpdateTime)
+            data.splice(i,0,temp)
+        }
+        item.index=i
+        i++
+    }
+    //console.log(data)
+    return data
+}
 export {
     dateParse,
-    roleTrans
+    roleTrans,
+    doProduce
 }
