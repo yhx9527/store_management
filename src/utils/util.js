@@ -29,7 +29,7 @@ function doProduce(data=[]) {
                 produceDeng: item['produceDeng' + 'Comment'],
                 index: i}
             item.updateTime=dateParse(item.produceUpdateTime)
-            data.splice(i,0,temp)
+            data.splice(i+1,0,temp)
         }
         item.index=i
         i++

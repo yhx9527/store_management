@@ -6,7 +6,7 @@
                 <el-form-item label="用户名" prop="userInfoName" >
                     <el-input v-model="userInfoForm.userInfoName" :disabled="!ifadd"></el-input>
                 </el-form-item>
-                <el-form-item label="真实性名" prop="userInfoTrueName">
+                <el-form-item label="真实姓名" prop="userInfoTrueName">
                     <el-input v-model="userInfoForm.userInfoTrueName"></el-input>
                 </el-form-item>
                 <el-form-item label="是否查封" prop="userInfoIsLocked" v-if="!ifadd" style="text-align: left;">
@@ -53,7 +53,7 @@
                     userInfoTrueName: '',
                     userInfoPass: '123456',
                     userInfoRoles: '',
-                    userInfoIsLocked: false
+                    userInfoIsLocked: 0
                 },
                 rules: {
                     userInfoName: [

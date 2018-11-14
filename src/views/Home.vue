@@ -18,7 +18,7 @@
     <img alt="Vue logo" src="../assets/logo.png">
     <HelloWorld msg="Welcome to Your Vue.js App"/>
   </div-->
-  <el-container style="height: 100vh;">
+  <el-container style="height: 97vh;">
     <el-header>
       <el-row>
         <el-col :span="12"><div style="text-align: left;font-weight: bold;font-size: 24px;">仓库后台管理系统</div></el-col>
@@ -29,6 +29,7 @@
               <i class="el-icon-setting" style="margin-left: 5px;font-size: 20px;"></i>
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item command="Index">门户网站</el-dropdown-item>
+                <el-dropdown-item command="UserInfo">个人资料</el-dropdown-item>
                 <el-dropdown-item command="Pwd">修改密码</el-dropdown-item>
                 <el-dropdown-item command="Logout">登出</el-dropdown-item>
               </el-dropdown-menu>

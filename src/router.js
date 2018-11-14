@@ -50,6 +50,11 @@ const router = new Router({
                 component: ()=>import('./views/Produce.vue')
             },
             {
+                path: '/produce/add',
+                name: 'produce-add',
+                component: ()=>import('./components/ProduceAdd.vue')
+            },
+            {
                 path: '/output',
                 name: 'output',
                 component: ()=>import('./views/Output.vue')
