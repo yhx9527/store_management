@@ -37,8 +37,23 @@ function doProduce(data=[]) {
     //console.log(data)
     return data
 }
+function downloadFile(fileName, blob) {
+    if('download' in document.createElement('a')){ //在非IE浏览器下载
+        const elink = document.createElement('a')
+        elink.download = fileName
+        elink.style.display = 'none'
+        elink.href = URL.createObjectURL(blob)
+        document.body.appendChild(elink)
+        elink.click()
+        URL.revokeObjectURL(elink.href)
+        document.body.removeChild(elink)
+    }else{ //IE10+下载
+        navigator.msSaveBlob(blob, fileName)
+    }
+}
 export {
     dateParse,
     roleTrans,
-    doProduce
+    doProduce,
+    downloadFile
 }

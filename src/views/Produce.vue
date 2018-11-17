@@ -12,14 +12,13 @@
         <el-row type="flex" style="margin-bottom: 30px;">
             <el-col :span="8" style="text-align: left">
                 <el-button type="primary" @click="handleForm">添加进度<i class="el-icon-circle-plus el-icon--right"></i></el-button>
-                <el-dropdown>
+                <el-dropdown @command="dateFile">
                     <el-button type="primary" style="margin-left: 20px;">
                         导入/导出<i class="el-icon-arrow-down el-icon--right"></i>
                     </el-button>
                     <el-dropdown-menu slot="dropdown">
-                        <el-dropdown-item>数据库导入</el-dropdown-item>
-                        <el-dropdown-item>文件导入</el-dropdown-item>
-                        <el-dropdown-item divided>导出进度</el-dropdown-item>
+                        <el-dropdown-item command="dbIn">数据库导入</el-dropdown-item>
+                        <el-dropdown-item divided command="fileOut">导出进度</el-dropdown-item>
                     </el-dropdown-menu>
                 </el-dropdown>
             </el-col>
@@ -193,11 +192,27 @@
             </span>
         </el-dialog>
         <produce-update :dataPut="dataPut" @update="handleUpdate"></produce-update>
+
+        <el-dialog :title="dateVisible===1 ? '请选择导入数据' : '请选择导出数据'" :visible.sync="dateVisible1" width="30%" :show-close="false">
+            <el-date-picker
+                    v-model="inOutValue"
+                    align="right"
+                    type="date"
+                    :placeholder="dateVisible===1 ? '选择导入日期' : '选择导出日期'"
+                    :picker-options="pickerOptions">
+            </el-date-picker>
+            <div slot="footer" class="dialog-footer">
+                <el-button @click="dateVisible = 0">取 消</el-button>
+                <el-tooltip :disabled="inOutValueTip" content="日期不能为空" placement="top" effect="light">
+                    <el-button type="primary" @click="dbImport">确 定</el-button>
+                </el-tooltip>
+            </div>
+        </el-dialog>
     </div>
 </template>
 
 <script>
-    import {dateParse,roleTrans,doProduce} from '../utils/util'
+    import {dateParse,roleTrans,doProduce,downloadFile} from '../utils/util'
     import {Message} from 'element-ui'
     import ElRow from "element-ui/packages/row/src/row";
     import ElButton from "../../node_modules/element-ui/packages/button/src/button.vue";
@@ -227,7 +242,9 @@
                 visible: false,
                 rowIndex:[],
                 dateValue:new Date(),
+                inOutValue:'',
                 centerDialogVisible: false,
+                dateVisible: 0,
                 dataPut: {
                     type:"update",
                     row:{},
@@ -374,6 +391,7 @@
             async clearDateData(){
                 let data = await this.$apis.produce_delete_date(this.day,this.month,this.year)
                 this.centerDialogVisible = false
+                this.content = []
             },
             handlePut(type,row){
                 this.dataPut={
@@ -387,6 +405,31 @@
                     type:"update",
                     row:{},
                     visible:false
+                }
+            },
+            dateFile(e){
+                if(e === 'dbIn'){
+                    this.dateVisible = 1
+                } else if(e === 'fileOut'){
+                    this.dateVisible = 2
+                }
+            },
+            async dbImport(){
+                if(this.inOutValue){
+                    let date = new Date(this.inOutValue)
+                    if(this.dateVisible === 1){
+                        let data = await this.$apis.produce_today(date.getDate(), date.getMonth()+1, date.getFullYear())
+                        this.inOutValue = ""
+                        this.cutPage()
+                    }else if(this.dateVisible ===2){
+                        let data = await this.$apis.produce_date(date.getDate(), date.getMonth()+1, date.getFullYear())
+                        //console.log("导出", data)
+                        const blob = new Blob([data])
+                        const fileName = `${date.getFullYear()}年${date.getMonth()+1}月${date.getDate()}日产值数据.xls`
+                        downloadFile(fileName, blob)
+                        this.inOutValue = ""
+                    }
+                    this.dateVisible = 0
                 }
             }
         },
@@ -406,8 +449,14 @@
             }
         },
         computed: {
+            dateVisible1(){
+                return Boolean(this.dateVisible)
+            },
             clearTip(){
                 return `${this.year}年${this.month}月${this.day}日`
+            },
+            inOutValueTip(){
+                return this.inOutValue ? true : false
             }
         }
     }
