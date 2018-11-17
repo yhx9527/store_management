@@ -36,7 +36,7 @@
             <el-col :span="8" style="text-align: right;">
                 <el-autocomplete
                         v-model="state"
-                        placeholder="请输入要搜索的产值"
+                        placeholder="请输入要搜索的进度"
                         clearable
                         prefix-icon="el-icon-search"
                         @select="selectName"
@@ -82,6 +82,8 @@
                         prop="produceYoufang"
                         label="油房" show-overflow-tooltip>
                 </el-table-column>
+            </el-table-column>
+            <el-table-column label="普通款" align="center">
                 <el-table-column
                         prop="produceBaozhuang"
                         label="包装" show-overflow-tooltip>
@@ -91,7 +93,7 @@
                         label="北京" show-overflow-tooltip>
                 </el-table-column>
             </el-table-column>
-            <el-table-column label="特定信息"  align="center">
+            <el-table-column label="定制款"  align="center">
                 <el-table-column
                         prop="produceTeding"
                         label="特定" show-overflow-tooltip>
@@ -213,6 +215,7 @@
 
 <script>
     import {dateParse,roleTrans,doProduce,downloadFile} from '../utils/util'
+    import {produceModel} from '../utils/models'
     import {Message} from 'element-ui'
     import ElRow from "element-ui/packages/row/src/row";
     import ElButton from "../../node_modules/element-ui/packages/button/src/button.vue";
@@ -391,7 +394,7 @@
             async clearDateData(){
                 let data = await this.$apis.produce_delete_date(this.day,this.month,this.year)
                 this.centerDialogVisible = false
-                this.content = []
+                this.cutPage()
             },
             handlePut(type,row){
                 this.dataPut={
@@ -400,12 +403,30 @@
                     visible:true
                 }
             },
-            handleUpdate(){
+            async handleUpdate(data, tempForm){
                 this.dataPut={
                     type:"update",
                     row:{},
                     visible:false
                 }
+                let param = produceModel.get(data.variate)
+                //console.log(form, param,data)
+                let form = {
+                    produceId: tempForm.row.produceId,
+                    [param] : data.num,
+                    [`${param}Comment`] : data.comment
+                }
+                if(tempForm.type==="update"){
+                    if((data.variate==="北京" || data.variate==="北京特定") && data.switch){
+                        let res = await this.$apis.produce_output(form)
+                    }else{
+                        let res = await this.$apis.produce_update(form)
+                    }
+                } else {
+                        let res = await this.$apis.produce_revice(form)
+                }
+                this.cutPage()
+                //console.log('收到 ',data, form)
             },
             dateFile(e){
                 if(e === 'dbIn'){
@@ -425,7 +446,7 @@
                         let data = await this.$apis.produce_date(date.getDate(), date.getMonth()+1, date.getFullYear())
                         //console.log("导出", data)
                         const blob = new Blob([data])
-                        const fileName = `${date.getFullYear()}年${date.getMonth()+1}月${date.getDate()}日产值数据.xls`
+                        const fileName = `${date.getFullYear()}年${date.getMonth()+1}月${date.getDate()}日产值数据`
                         downloadFile(fileName, blob)
                         this.inOutValue = ""
                     }

@@ -29,9 +29,9 @@ const router = new Router({
         },
         children: [
             {
-              path: '/(product)?',
-                name: 'product',
-                component: ()=>import('./views/Product.vue')
+              path: '/(produce)?',
+                name: 'produce',
+                component: ()=>import('./views/Produce.vue')
             },
             {
                 path: '/product/form/:productId?',
@@ -45,9 +45,9 @@ const router = new Router({
                 component: ()=>import('./components/UserForm.vue')
             },
             {
-                path: '/produce',
-                name: 'produce',
-                component: ()=>import('./views/Produce.vue')
+                path: '/product',
+                name: 'product',
+                component: ()=>import('./views/Product.vue')
             },
             {
                 path: '/produce/add',

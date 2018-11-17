@@ -1,43 +1,48 @@
 <template>
     <el-dialog :title="title" :visible.sync="visible" :close-on-click-modal="false" :close-on-press-escape="false">
-        <el-form :model="form">
-            <el-form-item label="产品名称" :label-width="formLabelWidth" disabled>
-                <el-input v-model="form.name" autocomplete="off"></el-input>
+        <el-form :model="form" :rules="rules" ref="produceForm">
+            <el-form-item label="产品名称" :label-width="formLabelWidth" disabled prop="name">
+                <el-input v-model="form.name" autocomplete="off" disabled></el-input>
             </el-form-item>
-            <el-form-item style="text-align: left" label="更改字段"  :label-width="formLabelWidth">
-                <el-select v-model="form.variate" placeholder="请选择" @change="selectChange">
+            <el-form-item style="text-align: left" label="更改字段"  :label-width="formLabelWidth" prop="variate">
+                <el-select v-model="form.variate" placeholder="请选择" @change="selectChange" >
                     <el-option
                             v-for="item in variates"
-                            :key="item.index"
+                            :key="item.label"
                             :label="item.label"
-                            :value="item.value">
+                            :value="item.label">
                         <span style="float: left">{{ item.label }}</span>
                         <span style="float: right; color: #8492a6; font-size: 13px;margin-left: 5px;">{{ item.value }}</span>
                     </el-option>
                 </el-select>
             </el-form-item>
-            <el-form-item :label-width="formLabelWidth" style="text-align: left">
+            <el-form-item :label-width="formLabelWidth" style="text-align: left" prop="switch">
                 <el-switch
                         v-model="form.switch"
                         inactive-text="入库"
-                        active-text="出货">
+                        active-text="出货"
+                        v-show="ifSwitch">
                 </el-switch>
             </el-form-item>
-            <el-form-item :label="numName" style="text-align: left"  :label-width="formLabelWidth">
-                <el-input-number v-model="form.num" controls-position="right" @change="handleChange"></el-input-number>
+            <el-form-item label="当前数量" :label-width="formLabelWidth" disabled style="text-align: left;" prop="curNum">
+                <el-input v-model="form.curNum" autocomplete="off" disabled style="width: 180px;"></el-input>
             </el-form-item>
-            <el-form-item label="备注" :label-width="formLabelWidth">
+            <el-form-item :label="numName" style="text-align: left"  :label-width="formLabelWidth" prop="num">
+                <el-input-number v-model.number="form.num" controls-position="right" @change="handleChange"></el-input-number>
+            </el-form-item>
+            <el-form-item label="备注" :label-width="formLabelWidth" prop="comment">
                 <el-input type="textarea" v-model="form.comment"></el-input>
             </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
             <el-button @click="visible = false">取 消</el-button>
-            <el-button type="primary" @click="submit">确 定</el-button>
+            <el-button type="primary" @click="submit('produceForm')">确 定</el-button>
         </div>
     </el-dialog>
 </template>
 <script>
     import ElFormItem from "../../node_modules/element-ui/packages/form/src/form-item.vue";
+    import {produceModel} from "../utils/models"
 
     export default {
         components: {ElFormItem},
@@ -48,19 +53,66 @@
                     variate: '',
                     num:'',
                     comment: '',
-                    switch:false
+                    switch:false,
+                    curNum:''
+                },
+                rules: {
+                    variate: [
+                        {required: true, message: '请选择更改的字段', trigger: 'change'}
+                    ],
+                    num: [
+                        {type: 'number', required: true, message: '请输入数量', trigger: 'change'}
+                    ]
                 },
                 formLabelWidth: '120px',
-                put: this.dataPut,
+                ifSwitch: ""
             };
         },
         props:['dataPut'],
+        watch: {
+          dataPut: function(newVal, oldVal){
+              this.form.name = newVal.row.produceProductName
+          }
+        },
         computed:{
             visible: {
                 get:function () {
+                    if(!this.dataPut.visible){
+                        /*this.form ={
+                                name: '',
+                                variate: '',
+                                num:'',
+                                comment: '',
+                                switch:false,
+                                curNum:''
+                            }*/
+                        try{
+                            this.$refs["produceForm"].resetFields()
+                            this.ifSwitch = ""
+                        }catch(e){
+
+                        }
+
+                    }
                     return this.dataPut.visible
                 },
                 set:function (v) {
+                    if(!v){
+                        /*this.form ={
+                            name: '',
+                            variate: '',
+                            num:'',
+                            comment: '',
+                            switch:false,
+                            curNum:''
+                        }*/
+                        try{
+                            this.$refs["produceForm"].resetFields()
+                            this.ifSwitch = ""
+                        }catch(e){
+
+                        }
+                    }
                     this.dataPut.visible = v
                 }
             },
@@ -74,23 +126,37 @@
             variates(){
                 let temp = this.dataPut.row
                 return [
-                    {label: '下单量', value: `当前数量:${temp.produceXiadan}`,index:0},
-                    {label: '木工量', value: `当前数量:${temp.produceMugong}`,index:1},
-                    {label: '油房量', value: `当前数量:${temp.produceYoufang}`,index:2},
-                    {label: '包装量', value: `当前数量:${temp.produceBaozhuang}`,index:3},
-                    {label: '北京', value: `当前数量:${temp.produceBeijing}`,index:4},
-                    {label: '特定量', value: `当前数量:${temp.produceTeding}`,index:5},
-                    {label: '本地合同量', value: `当前数量:${temp.produceBendihetong}`,index:6},
-                    {label: '外地合同量', value: `当前数量:${temp.produceWaidihetong}`,index:7},
+                    {label: '下单量', value: `当前下单:${temp.produceXiadan}`},
+                    {label: '木工量', value: `当前木工:${temp.produceMugong}`},
+                    {label: '油房量', value: `当前油房:${temp.produceYoufang}`},
+                    {label: '包装量', value: `当前包装:${temp.produceBaozhuang}`},
+                    {label: '北京', value: `当前北京:${temp.produceBeijing}`},
+                    {label: '特定量', value: `当前特定:${temp.produceTeding}`},
+                    {label: '北京特定', value: `当前北京特定:${temp.produceBeijingteding}`},
+                    {label: '本地合同量', value: `当前本地合同:${temp.produceBendihetong}`},
+                    {label: '外地合同量', value: `当前外地合同:${temp.produceWaidihetong}`},
+                    {label: '等待', value: `当前等待:${temp.produceDeng}`},
                 ]
             }
         },
         methods:{
-            submit(){
-                this.$emit('update')
+            submit(formName){
+                this.$refs[formName].validate((valid) => {
+                    if (valid) {
+                        this.$emit('update', this.form, this.dataPut)
+                    } else {
+                        console.log('error submit!!');
+                        return false;
+                    }
+                });
             },
             selectChange(e){
-                console.log('下拉框 ',e)
+               // console.log(produceModel)
+                this.form.comment = this.dataPut.row[produceModel.get(e)+ 'Comment']
+                this.form.curNum = this.dataPut.row[produceModel.get(e)]
+                if((e==="北京" || e==="北京特定") && this.dataPut.type==="update"){
+                    this.ifSwitch = true
+                }
             },
             handleChange(){
 

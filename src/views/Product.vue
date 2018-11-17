@@ -7,8 +7,8 @@
             <el-col :span="8" style="text-align: left">
                 <el-button type="primary" @click="handleForm">添加产品<i class="el-icon-circle-plus el-icon--right"></i></el-button>
             </el-col>
-            <el-col :span="7" style="text-align: right;" >
-                <el-select v-model="value" placeholder="请选择">
+            <el-col :span="16" style="text-align: right" >
+                <el-select v-model="value" placeholder="请选择" style="margin-right: 30px;">
                     <el-option
                             v-for="item in options"
                             :key="item.value"
@@ -16,8 +16,6 @@
                             :value="item.value">
                     </el-option>
                 </el-select>
-            </el-col>
-            <el-col :span="8" style="text-align: left" :offset="1">
                 <el-autocomplete
                         v-model="state"
                         :fetch-suggestions="querySearchAsync"
