@@ -8,12 +8,12 @@
                 <el-button type="primary" @click="handleForm">添加产品<i class="el-icon-circle-plus el-icon--right"></i></el-button>
             </el-col>
             <el-col :span="16" style="text-align: right" >
-                <el-select v-model="value" placeholder="请选择" style="margin-right: 30px;">
+                <el-select v-model="value" placeholder="选择产品类别" style="margin-right: 30px;">
                     <el-option
-                            v-for="item in options"
-                            :key="item.value"
-                            :label="item.label"
-                            :value="item.value">
+                            v-for="item in categoryArr"
+                            :key="item.categoryId"
+                            :label="item.categoryName"
+                            :value="item.categoryId">
                     </el-option>
                 </el-select>
                 <el-autocomplete
@@ -41,6 +41,11 @@
         <el-table-column
                 prop="productName"
                 label="产品名称"
+                width="200">
+        </el-table-column>
+        <el-table-column
+                prop="categoryName"
+                label="产品类别"
                 width="200">
         </el-table-column>
         <el-table-column
@@ -129,10 +134,22 @@
                 pageName: '',
                 productIds: [],
                 state:'',
-                productSearch:[]
+                productSearch:[],
+                category: new Map(),
+                categoryArr: []
             }
         },
         async created() {
+            let data = await this.$apis.category_get()
+            if(data){
+                let temp = data.map(item=>{
+                    return [item.categoryId, item]
+                })
+                this.categoryArr = data
+                this.category = new Map(temp)
+            }
+        },
+        async mounted(){
             this.cutPage()
         },
         methods: {
@@ -150,6 +167,11 @@
                     let content = Array.from(data.content, function (item) {
                         item.addTime = dateParse(item.productCreateTime)
                         item.updateTime = dateParse(item.productUpdateTime)
+                        if(item.categoryId){
+                            item.categoryName = this.category.get(item.categoryId).categoryName
+                        }else{
+                            item.categoryName = "未分类"
+                        }
                         return [item.productId, item]
                     })
                     //console.log('map ',content)

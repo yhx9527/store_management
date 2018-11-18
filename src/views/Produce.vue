@@ -53,6 +53,8 @@
                   ref="produceTable"
                   empty-textv="暂无数据"
                   :row-class-name="tableRowClassName"
+                  :summary-method="getSummaries"
+                  show-summary
                   @cell-mouse-enter="cellMouseEnter"
                   @cell-mouse-leave="cellMouseLeave"
                   @selection-change="handleSelectionChange"
@@ -253,6 +255,7 @@
                     row:{},
                     visible:false
                 },
+                summary:{},
                 pickerOptions: {
                     disabledDate(time) {
                         return time.getTime() > Date.now();
@@ -282,6 +285,7 @@
         },
         async created() {
             this.cutPage()
+            this.summary = await this.$apis.produce_total(this.day, this.month, this.year)
         },
         methods: {
             objectSpanMethod({ row, column, rowIndex, columnIndex }) {
@@ -426,6 +430,7 @@
                         let res = await this.$apis.produce_revice(form)
                 }
                 this.cutPage()
+                this.summary = await this.$apis.produce_total(this.day,this.month, this.year)
                 //console.log('收到 ',data, form)
             },
             dateFile(e){
@@ -446,12 +451,27 @@
                         let data = await this.$apis.produce_date(date.getDate(), date.getMonth()+1, date.getFullYear())
                         //console.log("导出", data)
                         const blob = new Blob([data])
-                        const fileName = `${date.getFullYear()}年${date.getMonth()+1}月${date.getDate()}日产值数据`
+                        const fileName = `${date.getFullYear()}年${date.getMonth()+1}月${date.getDate()}日进度数据`
                         downloadFile(fileName, blob)
                         this.inOutValue = ""
                     }
                     this.dateVisible = 0
                 }
+            },
+            getSummaries(param){
+                console.log('合计 ', param)
+                const {columns} = param
+                const sums = []
+                columns.forEach((column, index, array) => {
+                    if(index===1){
+                        sums[1] = `${this.year}年${this.month}月${this.day}日`
+                    } else if(index > 1 && index < array.length-2){
+                        sums[index] = this.summary[column.property]
+                    }else if(index===0){
+                        sums[0]="合计"
+                    }else{sums[index] = ""}
+                })
+                return sums
             }
         },
         watch: {
@@ -467,6 +487,7 @@
                 this.month=date.getMonth()+1
                 this.day =date.getDate()
                 this.cutPage()
+                this.summary = await this.$apis.produce_total(this.day,this.month, this.year)
             }
         },
         computed: {

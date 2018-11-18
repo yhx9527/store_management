@@ -44,6 +44,7 @@
         <el-submenu index="1">
           <template slot="title"><i class="el-icon-goods"></i>产品管理</template>
             <el-menu-item index="/product">所有产品</el-menu-item>
+            <el-menu-item index="/product/kinds">产品类别</el-menu-item>
             <el-menu-item index="/product/filein">导入产品文件</el-menu-item>
         </el-submenu>
         <el-submenu index="2">
@@ -51,11 +52,7 @@
             <el-menu-item index="/produce">进度列表</el-menu-item>
             <el-menu-item index="/produce/filein">导入进度文件</el-menu-item>
         </el-submenu>
-        <el-submenu index="3">
-          <template slot="title"><i class="el-icon-document"></i>产值管理</template>
-            <el-menu-item index="/output">所有产值</el-menu-item>
-            <el-menu-item index="/output/fileout">导出产值文件</el-menu-item>
-        </el-submenu>
+          <el-menu-item index="/output"><i class="el-icon-document"></i>产值管理</el-menu-item>
           <el-menu-item index="/userinfo"><i class="el-icon-view"></i>所有用户</el-menu-item>
       </el-menu>
     </el-aside>

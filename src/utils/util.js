@@ -37,6 +37,14 @@ function doProduce(data=[]) {
     //console.log(data)
     return data
 }
+function doOutput(data=[]) {
+    data.forEach(item=>{
+        item.updateTime = dateParse(item.outputUpdateTime)
+        item.outputBaozhuangTotalPrice = '￥' + item.outputBaozhuangTotalPrice
+        item.outputTedingTotalPrice = '￥' + item.outputTedingTotalPrice
+    })
+    return data
+}
 function downloadFile(fileName, blob) {
     fileName+='.xlsx'
     if('download' in document.createElement('a')){ //在非IE浏览器下载
@@ -56,5 +64,6 @@ export {
     dateParse,
     roleTrans,
     doProduce,
-    downloadFile
+    downloadFile,
+    doOutput
 }
