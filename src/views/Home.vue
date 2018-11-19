@@ -44,7 +44,7 @@
         <el-submenu index="1">
           <template slot="title"><i class="el-icon-goods"></i>产品管理</template>
             <el-menu-item index="/product">所有产品</el-menu-item>
-            <el-menu-item index="/product/kinds">产品类别</el-menu-item>
+            <el-menu-item index="/product/category">产品类别</el-menu-item>
             <el-menu-item index="/product/filein">导入产品文件</el-menu-item>
         </el-submenu>
         <el-submenu index="2">

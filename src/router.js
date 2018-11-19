@@ -16,11 +16,6 @@ const router = new Router({
           name: 'login',
           component: Login
       },
-      {
-          path: '/test',
-          name: 'test',
-          component: ()=>import('./views/test.vue')
-      },
     {
       path: '/',
       component: Home,
@@ -48,6 +43,11 @@ const router = new Router({
                 path: '/product',
                 name: 'product',
                 component: ()=>import('./views/Product.vue')
+            },
+            {
+                path: '/product/category',
+                name: 'category',
+                component: ()=>import('./components/Category.vue')
             },
             {
                 path: '/produce/add',
