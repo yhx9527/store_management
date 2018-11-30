@@ -7,7 +7,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     token: '',
-    userInfo: {}
+    userInfo: {},
+      categories: []
   },
   mutations: {
     setToken(state, token){
@@ -20,6 +21,10 @@ export default new Vuex.Store({
       clear(state) {
         state.token = ''
           state.userInfo = {}
+          state.categories = []
+      },
+      setCategories(state, categories){
+        state.categories = categories
       }
   },
   actions: {

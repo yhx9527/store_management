@@ -8,7 +8,7 @@
                 <el-button type="primary" @click="handleForm">添加产品<i class="el-icon-circle-plus el-icon--right"></i></el-button>
             </el-col>
             <el-col :span="16" style="text-align: right" >
-                <el-select v-model="value" placeholder="选择产品类别" style="margin-right: 30px;">
+                <el-select v-model="categoryId" placeholder="选择产品类别" style="margin-right: 30px;" >
                     <el-option
                             v-for="item in categoryArr"
                             :key="item.categoryId"
@@ -130,23 +130,36 @@
                 details: new Map(),
                 currentPage: 1,
                 pageSize: 10,
+                categoryId:'',
                 total: 0,
                 pageName: '',
                 productIds: [],
                 state:'',
                 productSearch:[],
                 category: new Map(),
-                categoryArr: []
+                categoryArr: [],
             }
         },
         async created() {
-            let data = await this.$apis.category_get()
-            if(data){
-                let temp = data.map(item=>{
+            let storeCategory = JSON.parse(JSON.stringify(this.$store.state.categories))
+            if(storeCategory.length > 0){
+                let temp = storeCategory.map(item=>{
                     return [item.categoryId, item]
                 })
-                this.categoryArr = data
                 this.category = new Map(temp)
+                storeCategory.unshift({categoryId:'', categoryName: '全部类别'})
+                this.categoryArr = storeCategory
+            } else {
+                let data = await this.$apis.category_get()
+                if(data){
+                    let temp = data.map(item=>{
+                        return [item.categoryId, item]
+                    })
+                    this.category = new Map(temp)
+                    this.$store.commit('setCategories', data)
+                    data.unshift({categoryId:'', categoryName: '全部类别'})
+                    this.categoryArr = data
+                }
             }
         },
         async mounted(){
@@ -161,8 +174,8 @@
                 this.currentPage = val
                 console.log(`当前页: ${val}`);
             },
-            async cutPage(page=this.currentPage, pageSize=this.pageSize, name=this.pageName){
-                let data = await this.$apis.product_get(page, pageSize, name)
+            async cutPage(page=this.currentPage, pageSize=this.pageSize, name=this.pageName, categoryId=this.categoryId){
+                let data = await this.$apis.product_get(page, pageSize, name, categoryId)
                 if (data) {
                     let content = Array.from(data.content, function (item) {
                         item.addTime = dateParse(item.productCreateTime)
@@ -245,7 +258,7 @@
             },
             handleForm(){
                 this.$router.push({name: 'productForm'})
-            }
+            },
         },
         watch: {
             currentPage: function (newVal, oldVal) {
@@ -253,6 +266,9 @@
             },
             pageSize: function (newVal, oldVal) {
                 this.cutPage(this.currentPage, newVal)
+            },
+            categoryId: function (newVal, oldVal) {
+               this.cutPage()
             }
         },
         computed: {

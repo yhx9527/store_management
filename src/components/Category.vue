@@ -144,6 +144,7 @@
                         item.updateTime = dateParse(item.categoryUpdateTime)
                     })
                     this.content = data.reverse()
+                    this.$store.commit('setCategories', data)
                 }
                 return data
             },
