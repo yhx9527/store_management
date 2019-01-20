@@ -8,23 +8,46 @@ export default new Vuex.Store({
   state: {
     token: '',
     userInfo: {},
-      categories: []
+    categories: []
+  },
+  getters: {
+    getToken(state) {
+      if(state.token === '') {
+        state.token = window.localStorage.getItem('token')
+        axios.defaults.headers.Authorization = 'Bearer ' + state.token
+      }
+      return state.token
+    },
+    getUserInfo(state) {
+      if(Object.keys(state.userInfo).length === 0) {
+        state.userInfo = JSON.parse(window.localStorage.getItem('userInfo'))
+      }
+      return state.userInfo
+    },
+    getCategories(state) {
+      if(state.categories.length === 0) {
+        state.categories = window.localStorage.getItem('categories')
+      }
+      return state.categories
+    }
   },
   mutations: {
-    setToken(state, token){
-      state.token = token
-      axios.defaults.headers.Authorization = 'Bearer ' + token
+    setUser(state, data) {
+      state.token = data.token
+      state.userInfo = data.userInfo
+      axios.defaults.headers.Authorization = 'Bearer ' + data.token
+      window.localStorage.setItem('token', data.token)
+      window.localStorage.setItem('userInfo', JSON.stringify(data.userInfo))
     },
-      setUserInfo(state, playload) {
-        state.userInfo = playload.userInfo
-      },
       clear(state) {
         state.token = ''
           state.userInfo = {}
           state.categories = []
+          window.localStorage.clear()
       },
       setCategories(state, categories){
         state.categories = categories
+        window.localStorage.setItem('categories', categories)
       }
   },
   actions: {

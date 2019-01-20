@@ -70,7 +70,7 @@
                         </el-form-item>
                         <el-form-item style="text-align: right;">
                             <el-button @click="ifadd=false">取消</el-button>
-                            <el-button type="primary"@click="submitForm('categoryForm')">添加</el-button>
+                            <el-button type="primary" @click="submitForm('categoryForm')">更新</el-button>
                         </el-form-item>
                     </el-form>
                 </el-card>

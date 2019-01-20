@@ -90,8 +90,8 @@ const router = new Router({
 
 router.beforeEach((to, from, next)=>{
     if (to.matched.some((r)=>{return r.meta.requireAuth})){
-        if (cookie.get('token')){
-            store.commit('setToken', cookie.get('token'))
+        console.log('gettoken',store.getters.getToken)
+        if (store.getters.getToken){
             next()
         } else {
             next({

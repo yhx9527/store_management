@@ -24,7 +24,7 @@
         <el-col :span="12"><div style="text-align: left;font-weight: bold;font-size: 24px;">仓库后台管理系统</div></el-col>
         <el-col :span="12">
           <div style="text-align: right">
-            <span>管理员</span>
+            <span>{{auth}}</span>
             <el-dropdown @command="handleCommand">
               <i class="el-icon-setting" style="margin-left: 5px;font-size: 20px;"></i>
               <el-dropdown-menu slot="dropdown">
@@ -73,6 +73,7 @@
 // @ is an alias to /src
 import HelloWorld from '@/components/HelloWorld.vue'
 import ElCol from "element-ui/packages/col/src/col";
+import {auths} from '@/utils/models'
 
 export default {
   name: 'home',
@@ -86,8 +87,12 @@ export default {
             name: '王小虎',
             address: '上海市普陀区金沙江路 1518 弄'
         };
+        console.log('userInfo', JSON.stringify(this.$store.getters.getUserInfo))
+        let auth = auths.get(this.$store.getters.getUserInfo.userInfoRoles)
+        console.log('auth', auth)
         return {
-            tableData: Array(20).fill(item)
+            tableData: Array(20).fill(item),
+            auth: auth
         }
     },
     methods: {

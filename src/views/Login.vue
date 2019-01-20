@@ -28,18 +28,12 @@
         },
         methods: {
             async submit(form){
-                console.log(form)
                 this.loading = true
                 let data = await this.$apis.user_login(form)
                 this.loading = false
                 if (data) {
-                    this.$store.commit('setToken', data.token)
-                    this.$store.commit({
-                        type: 'setUserInfo',
-                        userInfo: data.userInfo
-                    })
-                    this.$cookie.set('token', data.token, 0.5)
-                    this.$router.replace({path: 'product'})
+                    this.$store.commit('setUser', data)
+                    this.$router.replace({path: 'product'})                    
                 }
                 console.log('login', data)
             }
