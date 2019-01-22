@@ -7,6 +7,8 @@ import store from './store'
 
 Vue.use(Router)
 
+const userBan = ['output-fileout', 'filein', 'userinfo']
+const operatorBan = ['userinfo']
 const router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
@@ -92,7 +94,12 @@ router.beforeEach((to, from, next)=>{
     if (to.matched.some((r)=>{return r.meta.requireAuth})){
         console.log('gettoken',store.getters.getToken)
         if (store.getters.getToken){
-            next()
+            let auth = store.getters.getUserInfo.userInfoRoles
+            if((auth === 'USER' && userBan.includes(to.name)) || (auth === 'OPERATOR' && operatorBan.includes(to.name))) {
+                next(from.path)
+            } else {
+                next()
+            }
         } else {
             next({
                 name: 'login'

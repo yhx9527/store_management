@@ -11,9 +11,9 @@
     <div>
         <el-row type="flex" style="margin-bottom: 30px;">
             <el-col :span="8" style="text-align: left">
-                <el-button type="primary" @click="handleForm">添加进度<i class="el-icon-circle-plus el-icon--right"></i></el-button>
-                <el-dropdown @command="dateFile">
-                    <el-button type="primary" style="margin-left: 20px;">
+                <el-button type="primary" @click="handleForm"  v-if="$store.getters.getUserInfo.userInfoRoles !== 'USER'">添加进度<i class="el-icon-circle-plus el-icon--right"></i></el-button>
+                <el-dropdown @command="dateFile"  v-if="$store.getters.getUserInfo.userInfoRoles !== 'USER'">
+                    <el-button type="primary" style="margin-left: 20px;" >
                         导入/导出<i class="el-icon-arrow-down el-icon--right"></i>
                     </el-button>
                     <el-dropdown-menu slot="dropdown">
@@ -129,7 +129,7 @@
                 </template>
             </el-table-column>
             <el-table-column
-                    label="操作"  align="center" fixed="right">
+                    label="操作"  align="center" fixed="right"  v-if="$store.getters.getUserInfo.userInfoRoles !== 'USER'">
                 <template slot-scope="scope">
                     <el-row>
                         <el-col :span="24" >
@@ -169,10 +169,10 @@
                     <div style="text-align: right; margin: 0" v-else>
                         <el-button size="mini" type="primary" @click="visible = false">确定</el-button>
                     </div>
-                    <el-button slot="reference" type="warning">删除所选项</el-button>
+                    <el-button slot="reference" type="warning" v-if="$store.getters.getUserInfo.userInfoRoles !== 'USER'">删除所选项</el-button>
                 </el-popover>
-                <el-button @click="toggleSelection()" style="margin-left: 30px;">取消选择</el-button>
-                <el-button @click="centerDialogVisible=true" style="margin-left: 30px;" type="danger">清空该日数据</el-button>
+                <el-button @click="toggleSelection()" style="margin-left: 30px;"  v-if="$store.getters.getUserInfo.userInfoRoles !== 'USER'">取消选择</el-button>
+                <el-button @click="centerDialogVisible=true" style="margin-left: 30px;" type="danger" v-if="$store.getters.getUserInfo.userInfoRoles !== 'USER'">清空该日数据</el-button>
             </div>
             <el-pagination
                     @size-change="handleSizeChange"

@@ -47,7 +47,7 @@ export default new Vuex.Store({
       },
       setCategories(state, categories){
         state.categories = categories
-        window.localStorage.setItem('categories', categories)
+        window.localStorage.setItem('categories', JSON.stringify(categories))
       }
   },
   actions: {

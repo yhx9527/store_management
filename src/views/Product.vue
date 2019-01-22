@@ -5,7 +5,7 @@
     <div>
         <el-row type="flex" style="margin-bottom: 30px;">
             <el-col :span="8" style="text-align: left">
-                <el-button type="primary" @click="handleForm">添加产品<i class="el-icon-circle-plus el-icon--right"></i></el-button>
+                <el-button type="primary" @click="handleForm" v-if="$store.getters.getUserInfo.userInfoRoles !== 'USER'">添加产品<i class="el-icon-circle-plus el-icon--right"></i></el-button>
             </el-col>
             <el-col :span="16" style="text-align: right" >
                 <el-select v-model="categoryId" placeholder="选择产品类别" style="margin-right: 30px;" >
@@ -76,7 +76,7 @@
             </template>
         </el-table-column>
         <el-table-column
-                label="操作">
+                label="操作" v-if="$store.getters.getUserInfo.userInfoRoles !== 'USER'">
             <template slot-scope="scope">
                 <el-button
                         size="mini"
@@ -95,8 +95,8 @@
     </el-table>
         <el-row type="flex" justify="space-between" style="margin-top: 30px;">
             <div >
-                <el-button type="danger" @click="deleteProducts">删除所选项</el-button>
-                <el-button @click="toggleSelection()">取消选择</el-button>
+                <el-button type="danger" @click="deleteProducts" v-if="$store.getters.getUserInfo.userInfoRoles !== 'USER'">删除所选项</el-button>
+                <el-button @click="toggleSelection()" v-if="$store.getters.getUserInfo.userInfoRoles !== 'USER'">取消选择</el-button>
             </div>
             <el-pagination
                     @size-change="handleSizeChange"

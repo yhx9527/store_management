@@ -20,7 +20,7 @@
                         @select="selectName"
                         select-when-unmatched
                 ></el-autocomplete-->
-                <el-button type="primary" @click="visible=true">添加类别</el-button>
+                <el-button type="primary" @click="visible=true" v-if="$store.getters.getUserInfo.userInfoRoles !== 'USER'">添加类别</el-button>
             </el-col>
         </el-row>
         <el-row>
@@ -45,12 +45,12 @@
                     </el-table-column>
                     <el-table-column
                             label="操作"
-                            align="center">
+                            align="center" v-if="$store.getters.getUserInfo.userInfoRoles !== 'USER'">
                         <template slot-scope="scope">
                             <el-button
                                     @click="handleEdit(scope.$index, scope.row)"
                                     type="text"
-                                    size="small">
+                                    size="small" >
                                 更新
                             </el-button>
                         </template>

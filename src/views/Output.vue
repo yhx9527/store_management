@@ -11,7 +11,7 @@
     <div>
         <el-row type="flex" style="margin-bottom: 30px;">
             <el-col :span="8" style="text-align: left">
-                <el-button type="primary" @click="dateVisible = true">导出产值<i class="el-icon-circle-plus el-icon--right"></i></el-button>
+                <el-button  v-if="$store.getters.getUserInfo.userInfoRoles !== 'USER'" type="primary" @click="dateVisible = true">导出产值<i class="el-icon-circle-plus el-icon--right"></i></el-button>
             </el-col>
             <el-col :span="8" >
                 <span class="demonstration">每月产值</span>
@@ -106,7 +106,7 @@
                 </template>
             </el-table-column>
             <el-table-column
-                    label="操作"  align="center" fixed="right">
+                    label="操作"  align="center" fixed="right" v-if="$store.getters.getUserInfo.userInfoRoles !== 'USER'">
                 <template slot-scope="scope">
                     <el-row>
                         <!--el-col :span="24" >

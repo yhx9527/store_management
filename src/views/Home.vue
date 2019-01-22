@@ -45,15 +45,15 @@
           <template slot="title"><i class="el-icon-goods"></i>产品管理</template>
             <el-menu-item index="/product">所有产品</el-menu-item>
             <el-menu-item index="/product/category">产品类别</el-menu-item>
-            <el-menu-item index="/product/filein">导入产品文件</el-menu-item>
+            <el-menu-item index="/product/filein" v-if="auth_key !== 'USER'">导入产品文件</el-menu-item>
         </el-submenu>
         <el-submenu index="2">
           <template slot="title"><i class="el-icon-time"></i>进度管理</template>
             <el-menu-item index="/produce">进度列表</el-menu-item>
-            <el-menu-item index="/produce/filein">导入进度文件</el-menu-item>
+            <el-menu-item index="/produce/filein" v-if="auth_key !== 'USER'">导入进度文件</el-menu-item>
         </el-submenu>
           <el-menu-item index="/output"><i class="el-icon-document"></i>产值管理</el-menu-item>
-          <el-menu-item index="/userinfo"><i class="el-icon-view"></i>所有用户</el-menu-item>
+          <el-menu-item index="/userinfo" v-if="auth_key === 'ADMIN'"><i class="el-icon-view"></i>所有用户</el-menu-item>
       </el-menu>
     </el-aside>
       <el-main style="padding:0">
@@ -88,11 +88,13 @@ export default {
             address: '上海市普陀区金沙江路 1518 弄'
         };
         console.log('userInfo', JSON.stringify(this.$store.getters.getUserInfo))
-        let auth = auths.get(this.$store.getters.getUserInfo.userInfoRoles)
+        let auth_key = this.$store.getters.getUserInfo.userInfoRoles
+        let auth = auths.get(auth_key)
         console.log('auth', auth)
         return {
             tableData: Array(20).fill(item),
-            auth: auth
+            auth: auth,
+            auth_key
         }
     },
     methods: {
