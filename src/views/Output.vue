@@ -119,7 +119,7 @@
                             <el-button
                                     size="mini"
                                     type="primary"
-                                    @click="handlePut('modify',scope.row)">修正</el-button>
+                                    @click="handlePut('modify',scope.row)">修 正</el-button>
                         </el-col>
                         <!--el-col :span="24" style="margin-top: 5px">
                             <el-button

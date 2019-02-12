@@ -9,9 +9,29 @@
         left:50%;
         transform: translate(-50%,-50%);
     }
+    .img {
+        height: 60vh;
+        align-self: center;
+        box-shadow: 0px 2px 50px 1px #3d4a6a;
+    }
+    .login {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background:  #EAEEFA;
+        height: 100%;
+    }
+    .form {
+        margin-left: 0px;   
+        height: 80vh;
+        width: 25vw;
+    }
 </style>
 <template>
-    <login-form @login="submit" class="middle" :loading="loading"></login-form>
+    <div class="login">
+        <img src="../static/images/sky.jpg" class="img">
+        <login-form @login="submit" class="form" :loading="loading"></login-form>
+    </div>
 </template>
 
 <script>

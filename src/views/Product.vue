@@ -8,7 +8,8 @@
           type="primary"
           @click="handleForm"
           v-if="$store.getters.getUserInfo.userInfoRoles !== 'USER'"
-        >添加产品
+        >
+          添加产品
           <i class="el-icon-circle-plus el-icon--right"></i>
         </el-button>
       </el-col>
@@ -63,9 +64,9 @@
       </el-table-column>
       <el-table-column label="操作" v-if="$store.getters.getUserInfo.userInfoRoles !== 'USER'">
         <template slot-scope="scope">
-          <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-          <el-button size="mini" type="success" @click="handlePhoto(scope.$index, scope.row)">加图</el-button>
-          <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+          <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编 辑</el-button>
+          <el-button size="mini" type="success" @click="handlePhoto(scope.$index, scope.row)">加 图</el-button>
+          <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">删 除</el-button>
         </template>
       </el-table-column>
       <!-- <el-table-column type="expand">
@@ -76,14 +77,30 @@
     </el-table>
     <el-row type="flex" justify="space-between" style="margin-top: 30px;">
       <div>
-        <el-button
+        <!-- <el-button
           type="danger"
           @click="deleteProducts"
           v-if="$store.getters.getUserInfo.userInfoRoles !== 'USER'"
-        >删除所选项</el-button>
+        >删除所选项</el-button>-->
+        <el-popover placement="top" width="160" v-model="visible">
+          <p>{{productIds.length > 0 ? '您确定要删除所选的这些产品吗？' : '请先选择要删除的产品'}}</p>
+          <div style="text-align: right; margin: 0" v-if="productIds.length>0">
+            <el-button size="mini" type="text" @click="visible = false">取 消</el-button>
+            <el-button type="primary" size="mini" @click="deleteProducts">确 定</el-button>
+          </div>
+          <div style="text-align: right; margin: 0" v-else>
+            <el-button size="mini" type="primary" @click="visible = false">确 定</el-button>
+          </div>
+          <el-button
+            slot="reference"
+            type="danger"
+            v-if="$store.getters.getUserInfo.userInfoRoles !== 'USER'"
+          >删除所选项</el-button>
+        </el-popover>
         <el-button
           @click="toggleSelection()"
           v-if="$store.getters.getUserInfo.userInfoRoles !== 'USER'"
+          style="margin-left: 10px;"
         >取消选择</el-button>
       </div>
       <el-pagination
@@ -126,7 +143,8 @@ export default {
       state: "",
       productSearch: [],
       category: new Map(),
-      categoryArr: []
+      categoryArr: [],
+      visible: false
     };
   },
   async created() {
@@ -208,18 +226,28 @@ export default {
       });
     },
     handlePhoto(index, row) {
-      console.log('row', row)
+      console.log("row", row);
       this.$router.push({
         name: "photo",
         params: { product: row }
       });
     },
-    async handleDelete(index, row) {
-      let temp = [row.productId];
-      let data = await this.$apis.product_delete(temp);
-      if (!data) {
-        this.cutPage();
-      }
+    handleDelete(index, row) {
+      this.$confirm("是否删除产品--" + row.productName, "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+        .then(async () => {
+          let temp = [row.productId];
+          let data = await this.$apis.product_delete(temp);
+          if (!data) {
+            this.cutPage();
+          }
+        })
+        .catch(() => {
+          
+        });
     },
     toggleSelection(rows) {
       if (rows) {
@@ -233,12 +261,14 @@ export default {
     async deleteProducts() {
       if (this.productIds.length > 0) {
         let data = await this.$apis.product_delete(this.productIds);
+        this.visible = false;
         if (!data) {
           this.cutPage();
         }
-      } else {
-        Message.info("没有删除项");
       }
+      // } else {
+      //   Message.info("没有删除项");
+      // }
     },
     async querySearchAsync(queryString, cb) {
       let data = await this.$apis.product_get(

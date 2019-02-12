@@ -51,7 +51,7 @@
                                     @click="handleEdit(scope.$index, scope.row)"
                                     type="text"
                                     size="small" >
-                                更新
+                                更 新
                             </el-button>
                         </template>
                     </el-table-column>

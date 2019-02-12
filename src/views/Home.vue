@@ -1,8 +1,11 @@
 <style>
 .el-header {
-  background-color: #b3c0d1;
-  color: #333;
+  background-image: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  color: #57606f;
+  height: 80px;
   line-height: 60px;
+  margin: 5px;
+  border-radius: 8px;
 }
 
 .el-aside {
@@ -12,13 +15,16 @@
   padding-left: 10px;
   padding-top: 10px;
 }
+.aside{
+
+}
 </style>
 <template>
   <!--div class="home">
     <img alt="Vue logo" src="../assets/logo.png">
     <HelloWorld msg="Welcome to Your Vue.js App"/>
   </div-->
-  <el-container style="height: 97vh;">
+  <el-container style="height: 100%;">
     <el-header>
       <el-row>
         <el-col :span="12">
@@ -30,39 +36,53 @@
             <el-dropdown @command="handleCommand">
               <i class="el-icon-setting" style="margin-left: 5px;font-size: 20px;"></i>
               <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item command="Index">门户网站</el-dropdown-item>
+                <!-- <el-dropdown-item command="Index">门户网站</el-dropdown-item> -->
                 <el-dropdown-item command="UserInfo">个人资料</el-dropdown-item>
                 <el-dropdown-item command="Pwd">修改密码</el-dropdown-item>
-                <el-dropdown-item command="Logout">登出</el-dropdown-item>
+                <el-dropdown-item command="Logout">登 出</el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
           </div>
         </el-col>
       </el-row>
     </el-header>
-    <el-container style="height: 500px; border: 1px solid #eee">
-      <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
-        <el-menu :default-openeds="['1']" default-active="product" router>
+    <el-container style="margin-top: 20px;">
+      <el-aside width="80px" class="aside">
+        <el-menu
+          :default-openeds="['/product']"
+          default-active="product"
+          router
+          menu-trigger="hover"
+          :collapse="true"
+        >
           <el-submenu index="1">
             <template slot="title">
-              <i class="el-icon-goods"></i>产品管理
+              <i class="el-icon-goods"></i>
             </template>
-            <el-menu-item index="/product">所有产品</el-menu-item>
-            <el-menu-item index="/product/category">产品类别</el-menu-item>
-            <el-menu-item index="/product/filein" v-if="auth_key !== 'USER'">导入产品文件</el-menu-item>
+            <el-menu-item-group>
+              <span slot="title">产品管理</span>
+              <el-menu-item index="/product">所有产品</el-menu-item>
+              <el-menu-item index="/product/category">产品类别</el-menu-item>
+              <el-menu-item index="/product/filein" v-if="auth_key !== 'USER'">导入产品文件</el-menu-item>
+            </el-menu-item-group>
           </el-submenu>
           <el-submenu index="2">
             <template slot="title">
-              <i class="el-icon-time"></i>进度管理
+              <i class="el-icon-time"></i>
             </template>
-            <el-menu-item index="/produce">进度列表</el-menu-item>
-            <el-menu-item index="/produce/filein" v-if="auth_key !== 'USER'">导入进度文件</el-menu-item>
+            <el-menu-item-group>
+               <span slot="title">进度管理</span>
+               <el-menu-item index="/produce">进度列表</el-menu-item>
+               <el-menu-item index="/produce/filein" v-if="auth_key !== 'USER'">导入进度文件</el-menu-item>
+            </el-menu-item-group>
           </el-submenu>
           <el-menu-item index="/output">
-            <i class="el-icon-document"></i>产值管理
+            <i class="el-icon-document"></i>
+             <span slot="title">产值管理</span>
           </el-menu-item>
           <el-menu-item index="/userinfo" v-if="auth_key === 'ADMIN'">
-            <i class="el-icon-view"></i>所有用户
+            <i class="el-icon-view"></i>
+             <span slot="title">用户管理</span>
           </el-menu-item>
         </el-menu>
       </el-aside>

@@ -1,15 +1,19 @@
 <style scoped>
     .loginForm{
-        width: 65%;
-        margin: auto;
+        width: 90%;
+        margin-left: -30px;
         padding-right: 10%;
+        margin-top: 10px;
+
     }
     .loginCard{
         width: 40%;
-        margin:auto;
+        margin:0;
+        border-radius: 0;
     }
     .loginBtn{
         width: 100%;
+        margin-top: 10px;
     }
 </style>
 <template>
