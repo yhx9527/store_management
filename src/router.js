@@ -52,6 +52,11 @@ const router = new Router({
                 component: ()=>import('./components/Category.vue')
             },
             {
+                path: '/product/photo',
+                name: 'photo',
+                component: ()=>import('./views/Photo.vue')
+            },
+            {
                 path: '/produce/add',
                 name: 'produce-add',
                 component: ()=>import('./components/ProduceAdd.vue')
@@ -75,6 +80,16 @@ const router = new Router({
                 path: '/:name/filein',
                 name: 'filein',
                 component: ()=>import('./views/FileInProduct.vue')
+            },
+            {
+                path: '/changePwd',
+                name: 'changePwd',
+                component: ()=>import('./views/ChangePwd.vue')
+            },
+            {
+                path: '/profile',
+                name: 'profile',
+                component: ()=>import('./views/Profile.vue')
             }
         ]
 

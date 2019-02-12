@@ -4,13 +4,13 @@
 <template>
     <div>
         <el-row type="flex" justify="center">
-            <el-col :span="6" style="text-align: left">
+            <!-- <el-col :span="6" style="text-align: left">
                 <el-card class="box-card" v-if="!ifadd">
                     <div slot="header" class="clearfix">
                         <span>产品图片</span>
                     </div>
                 </el-card>
-            </el-col>
+            </el-col> -->
             <el-col :span="10" :offset="1">
                 <el-card style=" " shadow="hover">
                     <h2 slot="header">{{ifadd ? '产品添加' : '产品编辑'}}</h2>
@@ -44,14 +44,14 @@
                     </el-form>
                 </el-card>
             </el-col>
-            <el-col :span="6" :offset="1" style="text-align: left">
+            <!-- <el-col :span="6" :offset="1" style="text-align: left">
                 <el-card class="box-card" v-if="!ifadd">
                     <div slot="header" class="clearfix">
                         <span>添加图片</span>
                         <el-button style="float: right; padding: 3px 0" type="text">点击上传</el-button>
                     </div>
                 </el-card>
-            </el-col>
+            </el-col> -->
         </el-row>
 
     </div>
