@@ -18,7 +18,7 @@
 </style>
 <template>
     <el-card shadow="always" class="loginCard" :bodyStyle="{'padding-bottom':'80px','padding-top':'60px'}">
-        <h1 slot="header">仓库后台管理系统</h1>
+        <h1 slot="header" style="color: #353b48;">仓库后台管理系统</h1>
         <el-form ref="loginForm" labelPosition="right" :model="loginForm" :rules="loginRule"  label-width="100px" class="loginForm" statusIcon>
             <el-form-item label="用户名" prop="username">
                 <el-input placeholder="请输入用户名" clearable autofocus v-model="loginForm.username" autocomplete="on">

@@ -229,7 +229,7 @@ export default {
       console.log("row", row);
       this.$router.push({
         name: "photo",
-        params: { product: row }
+        params: { productId: row.productId }
       });
     },
     handleDelete(index, row) {

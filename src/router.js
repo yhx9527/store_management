@@ -52,7 +52,7 @@ const router = new Router({
                 component: ()=>import('./components/Category.vue')
             },
             {
-                path: '/product/photo',
+                path: '/product/:productId?/photo',
                 name: 'photo',
                 component: ()=>import('./views/Photo.vue')
             },
