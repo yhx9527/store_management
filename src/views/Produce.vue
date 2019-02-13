@@ -68,6 +68,7 @@
       @cell-mouse-leave="cellMouseLeave"
       @selection-change="handleSelectionChange"
       @expand-change="openDetail"
+      max-height="450"
     >
       <el-table-column type="selection" width="55" fixed></el-table-column>
       <el-table-column

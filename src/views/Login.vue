@@ -10,8 +10,8 @@
         transform: translate(-50%,-50%);
     }
     .img {
-        height: 60%;
-        width: 50%;
+        height: 400px;
+        width: 600px;
         align-self: center;
         box-shadow: 0px 2px 50px 1px #3d4a6a;
     }
@@ -24,8 +24,8 @@
     }
     .form {
         margin-left: 0px;   
-        height: 80%;
-        width: 25%;
+        height: 550px;
+        width: 350px;
     }
 </style>
 <template>

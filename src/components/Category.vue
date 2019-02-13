@@ -28,7 +28,8 @@
                 <el-table :data="content"
                           tooltip-effect="dark"
                           style="width: 100%"
-                          ref="categoryTable">
+                          ref="categoryTable"
+                          max-height="510">
                     <el-table-column
                             type="index"
                             width="80">

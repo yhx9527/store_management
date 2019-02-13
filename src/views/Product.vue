@@ -41,6 +41,7 @@
       ref="productTable"
       @selection-change="handleSelectionChange"
       @expand-change="openDetail"
+      max-height="450"
     >
       <el-table-column type="selection" width="55"></el-table-column>
       <el-table-column prop="productName" label="产品名称" width="150"></el-table-column>

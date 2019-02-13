@@ -46,7 +46,7 @@
         </el-col>
       </el-row>
     </el-header>
-    <el-container style="margin-top: 20px;background-image: linear-gradient(to top, #dfe9f3 0%, white 100%);">
+    <el-container style="margin-top: 20px;background-image: linear-gradient(to top, #dfe9f3 60px, white 100%);height: auto;">
       <el-aside width="80px" class="aside">
         <el-menu
           :default-openeds="['/product']"

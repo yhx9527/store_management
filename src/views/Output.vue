@@ -48,6 +48,7 @@
                   @cell-mouse-leave="cellMouseLeave"
                   @selection-change="handleSelectionChange"
                   @expand-change="openDetail"
+                  max-height="450"
         >
             <el-table-column
                     type="index"
