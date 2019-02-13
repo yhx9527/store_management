@@ -1,7 +1,7 @@
 
 <style scoped>
     .loginContainer{
-        height: 100vh;
+        height: 100%;
     }
     .middle{
         position: absolute;
@@ -10,7 +10,8 @@
         transform: translate(-50%,-50%);
     }
     .img {
-        height: 60vh;
+        height: 60%;
+        width: 50%;
         align-self: center;
         box-shadow: 0px 2px 50px 1px #3d4a6a;
     }
@@ -23,8 +24,8 @@
     }
     .form {
         margin-left: 0px;   
-        height: 80vh;
-        width: 25vw;
+        height: 80%;
+        width: 25%;
     }
 </style>
 <template>
