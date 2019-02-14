@@ -1,11 +1,13 @@
 <style>
 .el-header {
   background-image: linear-gradient(135deg, #4da5ff 0%, #74b9ff 100%);
+  /* background-image: linear-gradient(to right, #30cfd0 0%, #330867 100%); */
+  /* background-image: linear-gradient(to right, #330867 0%, #30cfd0 100%);   */
+  background-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: #ffffff;
   height: 80px;
   line-height: 60px;
-  border-bottom: 1px solid #74b9ff;
-  box-shadow: 0px 11px 10px -10px #004388;
+  box-shadow: 0px 9px 10px -10px #322044;
 }
 
 .el-aside {

@@ -46,6 +46,7 @@
       <el-table-column type="selection" width="55"></el-table-column>
       <el-table-column prop="productName" label="产品名称" width="150"></el-table-column>
       <el-table-column prop="categoryName" label="产品类别" width="150"></el-table-column>
+      <el-table-column prop="productSize" label="产品尺寸" width="150"></el-table-column>
       <el-table-column prop="productPrice" label="产品价格" width="150"></el-table-column>
       <el-table-column prop="productComment" label="备注"></el-table-column>
       <!-- <el-table-column
@@ -195,6 +196,7 @@ export default {
         let content = Array.from(data.content, function(item) {
           item.addTime = dateParse(item.productCreateTime);
           item.updateTime = dateParse(item.productUpdateTime);
+          item.productSize = item.productSize || '暂无数据'
           if (item.categoryId) {
             item.categoryName = this.category.get(item.categoryId).categoryName;
           } else {
@@ -314,6 +316,7 @@ export default {
   },
   computed: {
     contentArray: function() {
+      console.log('ca', Array.from(this.content.values()))
       return Array.from(this.content.values());
     }
   }
