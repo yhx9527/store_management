@@ -1,11 +1,11 @@
 <style>
 .el-header {
-  background-image: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-  color: #57606f;
+  background-image: linear-gradient(135deg, #4da5ff 0%, #74b9ff 100%);
+  color: #ffffff;
   height: 80px;
   line-height: 60px;
-  margin: 5px;
-  border-radius: 8px;
+  border-bottom: 1px solid #74b9ff;
+  box-shadow: 0px 11px 10px -10px #004388;
 }
 
 .el-aside {
@@ -15,8 +15,20 @@
   padding-left: 10px;
   padding-top: 10px;
 }
-.aside{
-
+.aside {
+  background: #ffffff;
+  box-shadow: 5px 0px 7px -7px #333;
+}
+.el-menu {
+  border-right: 0px !important;
+}
+.aside-icon {
+  color: #0984e3 !important;
+}
+.container {
+  margin-top: 20px;
+  background-image: linear-gradient(to bottom, #ffffff, #c2e1ff 100%);
+  height: auto;
 }
 </style>
 <template>
@@ -28,13 +40,15 @@
     <el-header>
       <el-row>
         <el-col :span="12">
-          <div style="text-align: left;font-weight: bold;font-size: 24px;">仓库后台管理系统</div>
+          <div style="text-align: left;font-weight: bold;font-size: 24px;">
+            <i class="el-icon-star-on"></i> Manage
+          </div>
         </el-col>
         <el-col :span="12">
           <div style="text-align: right">
             <span>{{auth}}</span>
             <el-dropdown @command="handleCommand">
-              <i class="el-icon-setting" style="margin-left: 5px;font-size: 20px;"></i>
+              <i class="el-icon-setting" style="margin-left: 5px;font-size: 20px;color: #FFFFFF;"></i>
               <el-dropdown-menu slot="dropdown">
                 <!-- <el-dropdown-item command="Index">门户网站</el-dropdown-item> -->
                 <el-dropdown-item command="UserInfo">个人资料</el-dropdown-item>
@@ -46,8 +60,8 @@
         </el-col>
       </el-row>
     </el-header>
-    <el-container style="margin-top: 20px;background-image: linear-gradient(to top, #dfe9f3 60px, white 100%);height: auto;">
-      <el-aside width="80px" class="aside">
+    <el-container class="container">
+      <el-aside width="65px" class="aside">
         <el-menu
           :default-openeds="['/product']"
           default-active="product"
@@ -57,7 +71,7 @@
         >
           <el-submenu index="1">
             <template slot="title">
-              <i class="el-icon-goods"></i>
+              <i class="el-icon-goods aside-icon"></i>
             </template>
             <el-menu-item-group>
               <span slot="title">产品管理</span>
@@ -68,25 +82,30 @@
           </el-submenu>
           <el-submenu index="2">
             <template slot="title">
-              <i class="el-icon-time"></i>
+              <i class="el-icon-time aside-icon"></i>
             </template>
             <el-menu-item-group>
-               <span slot="title">进度管理</span>
-               <el-menu-item index="/produce">进度列表</el-menu-item>
-               <el-menu-item index="/produce/filein" v-if="auth_key !== 'USER'">导入进度文件</el-menu-item>
+              <span slot="title">进度管理</span>
+              <el-menu-item index="/produce">进度列表</el-menu-item>
+              <el-menu-item index="/produce/filein" v-if="auth_key !== 'USER'">导入进度文件</el-menu-item>
             </el-menu-item-group>
           </el-submenu>
           <el-menu-item index="/output">
-            <i class="el-icon-document"></i>
-             <span slot="title">产值管理</span>
+            <i class="el-icon-document aside-icon"></i>
+            <span slot="title">产值管理</span>
           </el-menu-item>
           <el-menu-item index="/userinfo" v-if="auth_key === 'ADMIN'">
-            <i class="el-icon-view"></i>
-             <span slot="title">用户管理</span>
+            <i class="el-icon-view aside-icon"></i>
+            <span slot="title">用户管理</span>
           </el-menu-item>
         </el-menu>
       </el-aside>
       <el-main style="padding:0">
+        <div style="text-align: left;margin-left: 20px;">
+          <el-button round size="medium" type="primary" plain @click="back">
+            <i class="el-icon-back"></i> 返回
+          </el-button>
+        </div>
         <!--el-breadcrumb separator-class="el-icon-arrow-right" class="row-bar">
           <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
           <el-breadcrumb-item>活动管理</el-breadcrumb-item>
@@ -144,6 +163,9 @@ export default {
           this.$router.replace({ name: "login" });
           break;
       }
+    },
+    back() {
+      this.$router.back()
     }
   },
   mounted() {

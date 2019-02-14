@@ -20,6 +20,7 @@
                         align="right"
                         type="month"
                         placeholder="选择日期"
+                        :picker-options="pickerOptions"
                         @change="changeDate">
                 </el-date-picker>
             </el-col>
@@ -48,7 +49,7 @@
                   @cell-mouse-leave="cellMouseLeave"
                   @selection-change="handleSelectionChange"
                   @expand-change="openDetail"
-                  max-height="450"
+                  max-height="650"
         >
             <el-table-column
                     type="index"
@@ -204,7 +205,12 @@
                     row:{},
                     visible:false
                 },
-                summary:{}
+                summary:{},
+                pickerOptions: {
+                    disabledDate(date) {
+                        return date > Date.now()
+                    }
+                }
             }
         },
         async created() {

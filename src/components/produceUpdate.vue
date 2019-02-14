@@ -58,7 +58,10 @@
                 },
                 rules: {
                     variate: [
-                        {required: true, message: '请选择更改的字段', trigger: 'change'}
+                        {required: true, message: '请选择更改的字段', trigger: 'change'},
+                    ],
+                    comment: [
+                        {required: true, message: '请填写备注', trigger: 'change'},
                     ],
                     num: [
                         {type: 'number', required: true, message: '请输入数量', trigger: 'change'}

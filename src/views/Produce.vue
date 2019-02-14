@@ -68,7 +68,7 @@
       @cell-mouse-leave="cellMouseLeave"
       @selection-change="handleSelectionChange"
       @expand-change="openDetail"
-      max-height="450"
+      max-height="650"
     >
       <el-table-column type="selection" width="55" fixed></el-table-column>
       <el-table-column
@@ -81,7 +81,18 @@
       ></el-table-column>
       <el-table-column label="基础信息" align="center">
         <el-table-column prop="produceXiadan" label="下单量" show-overflow-tooltip></el-table-column>
-        <el-table-column prop="produceMugong" label="木工数" show-overflow-tooltip></el-table-column>
+        <el-table-column prop="produceMugong" label="木工数">
+          <template slot-scope="scope" v-if="scope.row.index%2 === 1">
+            <el-popover trigger="hover" placement="top">
+              <template v-for="remark in doRemark(scope.row['produceMugong'])">
+                <p>{{remark}}</p>
+              </template>
+              <div slot="reference" class="name-wrapper">
+                {{ doRemark(scope.row['produceMugong']).length }}条
+              </div>
+            </el-popover>
+          </template>
+        </el-table-column>
         <el-table-column prop="produceYoufang" label="油房" show-overflow-tooltip></el-table-column>
       </el-table-column>
       <el-table-column label="普通款" align="center">
@@ -220,6 +231,7 @@ export default {
   data: function() {
     return {
       content: [],
+      remarks: ['1232131', '1231231231231','sdafdafdadfdfsfsdfdfsfsd'],
       details: new Map(),
       currentPage: 1,
       pageSize: 10,
@@ -270,6 +282,9 @@ export default {
             }
           }
         ]
+      },
+      doRemark(data){
+        return data ? data.split('###') : []
       }
     };
   },
@@ -340,11 +355,15 @@ export default {
       let data = await this.$apis.produce_detail(e.produceId);
     },
     handleDelete(index, row) {
-      this.$confirm("此操作将删除产品 "+ row.produceProductName + " 的进度, 是否继续?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning"
-      })
+      this.$confirm(
+        "此操作将删除产品 " + row.produceProductName + " 的进度, 是否继续?",
+        "提示",
+        {
+          confirmButtonText: "确定",
+          cancelButtonText: "取消",
+          type: "warning"
+        }
+      )
         .then(async () => {
           let temp = [row.produceId];
           let data = await this.$apis.produce_delete(temp);
