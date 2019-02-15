@@ -191,6 +191,7 @@ export default {
       name = this.pageName,
       categoryId = this.categoryId
     ) {
+      var that = this;
       let data = await this.$apis.product_get(page, pageSize, name, categoryId);
       if (data) {
         let content = Array.from(data.content, function(item) {
@@ -198,7 +199,7 @@ export default {
           item.updateTime = dateParse(item.productUpdateTime);
           item.productSize = item.productSize || '暂无数据'
           if (item.categoryId) {
-            item.categoryName = this.category.get(item.categoryId).categoryName;
+            item.categoryName = that.category.get(item.categoryId).categoryName;
           } else {
             item.categoryName = "未分类";
           }
