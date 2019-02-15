@@ -29,6 +29,16 @@
   background-image: linear-gradient(to bottom, #ffffff, #c2e1ff 100%);
   height: auto;
 }
+.el-menu-item.is-active {
+  color: #409EFF;
+  background-color: #ecf5ff;
+}
+li.el-submenu.is-active {
+  background-color: #ecf5ff;
+}
+li.el-submenu.is-active i.aside-icon {
+  color: #409EFF;
+}
 </style>
 <template>
   <!--div class="home">
