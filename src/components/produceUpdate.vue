@@ -158,6 +158,7 @@
             submit(formName){
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
+                        console.log('zjj', this.form)
                         this.$emit('update', this.form, this.dataPut)
                     } else {
                         console.log('error submit!!');
@@ -168,6 +169,7 @@
             selectChange(e){
                // console.log(produceModel)
                 //this.form.comment = this.dataPut.row[produceModel.get(e)+ 'Comment']
+                console.log('选择', e, this.form)
                 this.form.curNum = this.dataPut.row[produceModel.get(e)]
                 if((e==="北京" || e==="北京特定") && this.dataPut.type==="update"){
                     this.ifSwitch1 = ""

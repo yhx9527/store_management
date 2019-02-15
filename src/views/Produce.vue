@@ -603,7 +603,7 @@ export default {
         visible: false
       };
       let param = produceModel.get(data.variate);
-      //console.log(form, param,data)
+      console.log('传过来', data)
       let form = {
         produceId: tempForm.row.produceId,
         [param]: data.num,
@@ -614,12 +614,14 @@ export default {
           (data.variate === "北京" || data.variate === "北京特定") &&
           data.switch
         ) {
+          console.log('北京')
           let res = await this.$apis.produce_output(form);
         } else if(
           (data.variate === "包装量" || data.variate === "特定量") &&
-          data.switch) {
+          data.switch1) {
             console.log('等待接口')
         } else {
+          console.log('包装', data)
           let res = await this.$apis.produce_update(form);
         }
       } else {
