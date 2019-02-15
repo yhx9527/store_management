@@ -11,7 +11,7 @@ function roleTrans(data) {
         return roles.get(item)
     }).join(',')
 }
-function doProduce(data=[]) {
+function doProduce1(data=[]) {
     let i=0
     while(i<data.length){
         let item = data[i]
@@ -35,6 +35,12 @@ function doProduce(data=[]) {
         i++
     }
     //console.log(data)
+    return data
+}
+function doProduce(data=[]) {
+    data.forEach(item=>{
+        item.updateTime = dateParse(item.produceUpdateTime)
+    })
     return data
 }
 function doOutput(data=[]) {

@@ -158,7 +158,6 @@ export default {
         return [item.categoryId, item];
       });
       this.category = new Map(temp);
-      //storeCategory.unshift({ categoryId: "", categoryName: "全部类别" });
       this.categoryArr = storeCategory;
     } else {
       let data = await this.$apis.category_get();
@@ -172,10 +171,9 @@ export default {
         this.categoryArr = data;
       }
     }
-  },
-  async mounted() {
     this.cutPage();
   },
+  async mounted() {},
   methods: {
     handleSizeChange(val) {
       this.pageSize = val;
@@ -197,8 +195,9 @@ export default {
         let content = Array.from(data.content, function(item) {
           item.addTime = dateParse(item.productCreateTime);
           item.updateTime = dateParse(item.productUpdateTime);
-          item.productSize = item.productSize || '暂无数据'
+          item.productSize = item.productSize || "暂无数据";
           if (item.categoryId) {
+            console.log("分类", that.category);
             item.categoryName = that.category.get(item.categoryId).categoryName;
           } else {
             item.categoryName = "未分类";
@@ -249,9 +248,7 @@ export default {
             this.cutPage();
           }
         })
-        .catch(() => {
-          
-        });
+        .catch(() => {});
     },
     toggleSelection(rows) {
       if (rows) {
@@ -317,7 +314,7 @@ export default {
   },
   computed: {
     contentArray: function() {
-      console.log('ca', Array.from(this.content.values()))
+      console.log("ca", Array.from(this.content.values()));
       return Array.from(this.content.values());
     }
   }

@@ -57,15 +57,14 @@
     <el-table
       :data="content"
       tooltip-effect="dark"
-      :span-method="objectSpanMethod"
+
       style="width: 100%"
       ref="produceTable"
       empty-textv="暂无数据"
       :row-class-name="tableRowClassName"
       :summary-method="getSummaries"
       show-summary
-      @cell-mouse-enter="cellMouseEnter"
-      @cell-mouse-leave="cellMouseLeave"
+      
       @selection-change="handleSelectionChange"
       @expand-change="openDetail"
       max-height="580"
@@ -80,156 +79,172 @@
         width="150"
       ></el-table-column>
       <el-table-column label="基础信息" align="center">
-        <el-table-column prop="produceXiadan" label="下单量">
+        <el-table-column prop="produceXiadan" label="下单量" align="center">
           <template slot-scope="scope">
+            <el-popover trigger="hover" placement="top" :disabled="!scope.row['produceXiadanComment']">
+              <template v-for="remark in doRemark(scope.row['produceXiadanComment'])">
+                <p>{{remark}}</p>
+              </template>
+              <div slot="reference" class="name-wrapper">
+                <span>{{scope.row['produceXiadan']}}</span>
+              </div>
+            </el-popover>
+          </template>
+        </el-table-column>
+        <el-table-column prop="produceMugong" label="木工数" align="center">
+          <template slot-scope="scope">
+            <el-popover trigger="hover" placement="top" :disabled="!scope.row['produceMugongComment']">
+              <template v-for="remark in doRemark(scope.row['produceMugongComment'])">
+                <p>{{remark}}</p>
+              </template>
+              <div slot="reference" class="name-wrapper">
+                <span>{{scope.row['produceMugong']}}</span>
+              </div>
+            </el-popover>
+          </template>
+        </el-table-column>
+        <el-table-column prop="produceYoufang" label="油房" align="center">
+         <template slot-scope="scope">
             <el-popover
               trigger="hover"
               placement="top"
-              v-if="scope.row.index%2 === 1 && scope.row['produceXiadan'] && scope.row['produceXiadan'].length>0"
+              :disabled="!scope.row['produceYoufangComment']"
             >
-              <template v-for="remark in doRemark(scope.row['produceXiadan'])">
+              <template v-for="remark in doRemark(scope.row['produceYoufangComment'])">
                 <p>{{remark}}</p>
               </template>
               <div
                 slot="reference"
                 class="name-wrapper"
-              >{{ doRemark(scope.row['produceXiadan']).length }}条</div>
+              ><span>{{scope.row['produceYoufang']}}</span></div>
             </el-popover>
-            <span v-else>{{scope.row['produceXiadan']}}</span>
-          </template>
-        </el-table-column>
-        <el-table-column prop="produceMugong" label="木工数">
-          <template slot-scope="scope">
-            <el-popover trigger="hover" placement="top" v-if="scope.row.index%2 === 1 && scope.row['produceMugong'] && scope.row['produceMugong'].length>0">
-              <template v-for="remark in doRemark(scope.row['produceMugong'])">
-                <p>{{remark}}</p>
-              </template>
-              <div
-                slot="reference"
-                class="name-wrapper"
-              >{{ doRemark(scope.row['produceMugong']).length }}条</div>
-            </el-popover>
-            <span v-else>{{scope.row['produceMugong']}}</span>
-          </template>
-        </el-table-column>
-        <el-table-column prop="produceYoufang" label="油房">
-          <template slot-scope="scope">
-            <el-popover trigger="hover" placement="top" v-if="scope.row.index%2 === 1 && scope.row['produceYoufang'] && scope.row['produceYoufang'].length>0">
-              <template v-for="remark in doRemark(scope.row['produceYoufang'])">
-                <p>{{remark}}</p>
-              </template>
-              <div
-                slot="reference"
-                class="name-wrapper"
-              >{{ doRemark(scope.row['produceYoufang']).length }}条</div>
-            </el-popover>
-            <span v-else>{{scope.row['produceYoufang']}}</span>
           </template>
         </el-table-column>
       </el-table-column>
       <el-table-column label="普通款" align="center">
-        <el-table-column prop="produceBaozhuang" label="包装">
+        <el-table-column prop="produceBaozhuang" label="包装" align="center">
           <template slot-scope="scope">
-            <el-popover trigger="hover" placement="top" v-if="scope.row.index%2 === 1 && scope.row['produceBaozhuang'] && scope.row['produceBaozhuang'].length>0">
-              <template v-for="remark in doRemark(scope.row['produceBaozhuang'])">
+            <el-popover
+              trigger="hover"
+              placement="top"
+              :disabled="!scope.row['produceBaozhuangComment']"
+            >
+              <template v-for="remark in doRemark(scope.row['produceBaozhuangComment'])">
                 <p>{{remark}}</p>
               </template>
               <div
                 slot="reference"
                 class="name-wrapper"
-              >{{ doRemark(scope.row['produceBaozhuang']).length }}条</div>
+              ><span>{{scope.row['produceBaozhuang']}}</span></div>
             </el-popover>
-            <span v-else>{{scope.row['produceBaozhuang']}}</span>
           </template>
         </el-table-column>
-        <el-table-column prop="produceBeijing" label="北京">
+        <el-table-column prop="produceBeijing" label="北京" align="center">
           <template slot-scope="scope">
-            <el-popover trigger="hover" placement="top" v-if="scope.row.index%2 === 1 && scope.row['produceBeijing'] && scope.row['produceBeijing'].length>0">
-              <template v-for="remark in doRemark(scope.row['produceBeijing'])">
+            <el-popover
+              trigger="hover"
+              placement="top"
+              :disabled="!scope.row['produceBeijingComment']"
+            >
+              <template v-for="remark in doRemark(scope.row['produceBeijingComment'])">
                 <p>{{remark}}</p>
               </template>
               <div
                 slot="reference"
                 class="name-wrapper"
-              >{{ doRemark(scope.row['produceBeijing']).length }}条</div>
+              ><span>{{scope.row['produceBeijing']}}</span></div>
             </el-popover>
-            <span v-else>{{scope.row['produceBeijing']}}</span>
           </template>
         </el-table-column>
       </el-table-column>
       <el-table-column label="定制款" align="center">
-        <el-table-column prop="produceTeding" label="特定">
+        <el-table-column prop="produceTeding" label="特定" align="center">
           <template slot-scope="scope">
-            <el-popover trigger="hover" placement="top" v-if="scope.row.index%2 === 1 && scope.row['produceTeding'] && scope.row['produceTeding'].length>0">
-              <template v-for="remark in doRemark(scope.row['produceTeding'])">
+            <el-popover
+              trigger="hover"
+              placement="top"
+              :disabled="!scope.row['produceTedingComment']"
+            >
+              <template v-for="remark in doRemark(scope.row['produceTedingComment'])">
                 <p>{{remark}}</p>
               </template>
               <div
                 slot="reference"
                 class="name-wrapper"
-              >{{ doRemark(scope.row['produceTeding']).length }}条</div>
+              ><span>{{scope.row['produceTeding']}}</span></div>
             </el-popover>
-            <span v-else>{{scope.row['produceTeding']}}</span>
           </template>
         </el-table-column>
-        <el-table-column prop="produceBeijingteding" label="北京特定">
+        <el-table-column prop="produceBeijingteding" label="北京特定" align="center">
           <template slot-scope="scope">
-            <el-popover trigger="hover" placement="top" v-if="scope.row.index%2 === 1 && scope.row['produceBeijingteding'] && scope.row['produceBeijingteding'].length>0">
-              <template v-for="remark in doRemark(scope.row['produceBeijingteding'])">
+            <el-popover
+              trigger="hover"
+              placement="top"
+              :disabled="!scope.row['produceBeijingtedingComment']"
+            >
+              <template v-for="remark in doRemark(scope.row['produceBeijingtedingComment'])">
                 <p>{{remark}}</p>
               </template>
               <div
                 slot="reference"
                 class="name-wrapper"
-              >{{ doRemark(scope.row['produceBeijingteding']).length }}条</div>
+              ><span>{{scope.row['produceBeijingteding']}}</span></div>
             </el-popover>
-            <span v-else>{{scope.row['produceBeijingteding']}}</span>
           </template>
         </el-table-column>
       </el-table-column>
       <el-table-column label="合同信息" align="center">
-        <el-table-column prop="produceBendihetong" label="本地合同">
+        <el-table-column prop="produceBendihetong" label="本地合同" align="center">
           <template slot-scope="scope">
-            <el-popover trigger="hover" placement="top" v-if="scope.row.index%2 === 1 && scope.row['produceBendihetong'] && scope.row['produceBendihetong'].length>0">
-              <template v-for="remark in doRemark(scope.row['produceBendihetong'])">
+            <el-popover
+              trigger="hover"
+              placement="top"
+              :disabled="!scope.row['produceBendihetongComment']"
+            >
+              <template v-for="remark in doRemark(scope.row['produceBendihetongComment'])">
                 <p>{{remark}}</p>
               </template>
               <div
                 slot="reference"
                 class="name-wrapper"
-              >{{ doRemark(scope.row['produceBendihetong']).length }}条</div>
+              ><span>{{scope.row['produceBendihetong']}}</span></div>
             </el-popover>
-            <span v-else>{{scope.row['produceBendihetong']}}</span>
           </template>
         </el-table-column>
-        <el-table-column prop="produceWaidihetong" label="外地合同">
+        <el-table-column prop="produceWaidihetong" label="外地合同" align="center">
           <template slot-scope="scope">
-            <el-popover trigger="hover" placement="top" v-if="scope.row.index%2 === 1 && scope.row['produceWaidihetong'] && scope.row['produceWaidihetong'].length>0">
-              <template v-for="remark in doRemark(scope.row['produceWaidihetong'])">
+            <el-popover
+              trigger="hover"
+              placement="top"
+              :disabled="!scope.row['produceWaidihetongComment']"
+            >
+              <template v-for="remark in doRemark(scope.row['produceWaidihetongComment'])">
                 <p>{{remark}}</p>
               </template>
               <div
                 slot="reference"
                 class="name-wrapper"
-              >{{ doRemark(scope.row['produceWaidihetong']).length }}条</div>
+              ><span>{{scope.row['produceWaidihetong']}}</span></div>
             </el-popover>
-            <span v-else>{{scope.row['produceWaidihetong']}}</span>
           </template>
         </el-table-column>
       </el-table-column>
       <el-table-column prop="produceDeng" label="等待" align="center">
         <template slot-scope="scope">
-          <el-popover trigger="hover" placement="top" v-if="scope.row.index%2 === 1 && scope.row['produceDeng'] && scope.row['produceDeng'].length>0">
-            <template v-for="remark in doRemark(scope.row['produceDeng'])">
-              <p>{{remark}}</p>
-            </template>
-            <div
-              slot="reference"
-              class="name-wrapper"
-            >{{ doRemark(scope.row['produceDeng']).length }}条</div>
-          </el-popover>
-          <span v-else>{{scope.row['produceDeng']}}</span>
-        </template>
+            <el-popover
+              trigger="hover"
+              placement="top"
+              :disabled="!scope.row['produceDengComment']"
+            >
+              <template v-for="remark in doRemark(scope.row['produceDengComment'])">
+                <p>{{remark}}</p>
+              </template>
+              <div
+                slot="reference"
+                class="name-wrapper"
+              ><span>{{scope.row['produceDeng']}}</span></div>
+            </el-popover>
+          </template>
       </el-table-column>
       <el-table-column prop="updateTime" label="最近修改" width="220" align="center">
         <template slot-scope="scope">
@@ -246,10 +261,15 @@
         <template slot-scope="scope">
           <el-row>
             <el-col :span="24">
-              <el-button size="mini" type="success" @click="handlePut('update',scope.row)" :disabled="ifUpdate">更 新</el-button>
+              <el-button
+                size="mini"
+                type="success"
+                @click="handlePut('update',scope.row)"
+                :disabled="ifUpdate"
+              >更 新</el-button>
             </el-col>
             <el-col :span="24" style="margin-top: 5px">
-              <el-button size="mini" type="primary" @click="handlePut('modify',scope.row)" >修 正</el-button>
+              <el-button size="mini" type="primary" @click="handlePut('modify',scope.row)">修 正</el-button>
             </el-col>
             <el-col :span="24" style="margin-top: 5px">
               <el-button
@@ -679,12 +699,12 @@ export default {
         this.month,
         this.year
       );
-      if((date.valueOf() + 24*60*60*1000) < Date.now()) {
-        this.ifUpdate = true
-        this.ifRevise = true
+      if (date.valueOf() + 24 * 60 * 60 * 1000 < Date.now()) {
+        this.ifUpdate = true;
+        this.ifRevise = true;
       } else {
-        this.ifUpdate = false
-        this.ifRevise = false
+        this.ifUpdate = false;
+        this.ifRevise = false;
       }
     }
   },
