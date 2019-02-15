@@ -24,9 +24,6 @@
 .el-menu {
   border-right: 0px !important;
 }
-.aside-icon {
-  color: #0984e3 !important;
-}
 .container {
   margin-top: 20px;
   background-image: linear-gradient(to bottom, #ffffff, #c2e1ff 100%);
@@ -70,6 +67,7 @@
           router
           menu-trigger="hover"
           :collapse="true"
+          text-color=""
         >
           <el-submenu index="1">
             <template slot="title">
