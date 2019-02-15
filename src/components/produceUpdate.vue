@@ -16,12 +16,20 @@
                     </el-option>
                 </el-select>
             </el-form-item>
-            <el-form-item :label-width="formLabelWidth" style="text-align: left" prop="switch">
+            <el-form-item :label-width="formLabelWidth" style="text-align: left" prop="switch" v-if="ifSwitch">
                 <el-switch
                         v-model="form.switch"
                         inactive-text="入库"
                         active-text="出货"
-                        v-show="ifSwitch">
+                        >
+                </el-switch>
+            </el-form-item>
+            <el-form-item :label-width="formLabelWidth" style="text-align: left" prop="switch1" v-if="ifSwitch1">
+                <el-switch
+                        v-model="form.switch1"
+                        inactive-text="入库北京"
+                        active-text="工厂出货"
+                        >
                 </el-switch>
             </el-form-item>
             <el-form-item label="当前数量" :label-width="formLabelWidth" disabled style="text-align: left;" prop="curNum">
@@ -54,6 +62,7 @@
                     num:'',
                     comment: '',
                     switch:false,
+                    switch1: false,
                     curNum:''
                 },
                 rules: {
@@ -68,7 +77,8 @@
                     ]
                 },
                 formLabelWidth: '120px',
-                ifSwitch: ""
+                ifSwitch: "",
+                ifSwitch1: ""
             };
         },
         props:['dataPut'],
@@ -92,6 +102,7 @@
                         try{
                             this.$refs["produceForm"].resetFields()
                             this.ifSwitch = ""
+                            this.ifSwitch1 = ""
                         }catch(e){
 
                         }
@@ -112,6 +123,7 @@
                         try{
                             this.$refs["produceForm"].resetFields()
                             this.ifSwitch = ""
+                            this.ifSwitch1 = ""
                         }catch(e){
 
                         }
@@ -158,9 +170,14 @@
                 //this.form.comment = this.dataPut.row[produceModel.get(e)+ 'Comment']
                 this.form.curNum = this.dataPut.row[produceModel.get(e)]
                 if((e==="北京" || e==="北京特定") && this.dataPut.type==="update"){
+                    this.ifSwitch1 = ""
                     this.ifSwitch = true
+                } else if((e==="包装量" || e==="特定量") && this.dataPut.type==="update"){
+                    this.ifSwitch = ""
+                    this.ifSwitch1 = true
                 } else {
                     this.ifSwitch = ""
+                    this.ifSwitch1 = ""
                 }
             },
             handleChange(){

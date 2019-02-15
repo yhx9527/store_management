@@ -615,6 +615,10 @@ export default {
           data.switch
         ) {
           let res = await this.$apis.produce_output(form);
+        } else if(
+          (data.variate === "包装量" || data.variate === "特定量") &&
+          data.switch) {
+            console.log('等待接口')
         } else {
           let res = await this.$apis.produce_update(form);
         }
