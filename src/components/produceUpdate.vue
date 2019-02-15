@@ -159,6 +159,8 @@
                 this.form.curNum = this.dataPut.row[produceModel.get(e)]
                 if((e==="北京" || e==="北京特定") && this.dataPut.type==="update"){
                     this.ifSwitch = true
+                } else {
+                    this.ifSwitch = ""
                 }
             },
             handleChange(){
