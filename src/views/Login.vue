@@ -27,7 +27,7 @@
     height: 90%;
     width: 80%;
     border-radius: 20px;
-    background-image: url(https://s2.ax1x.com/2019/02/15/kDskIx.jpg);
+    background-image: url(https://s2.ax1x.com/2019/02/15/kDh1Te.jpg);
     background-size: 100% 100%;
     display: flex;
     align-items: center;
