@@ -46,7 +46,7 @@
                       :min="1"
                     ></el-input-number>
                   </el-form-item>
-                  <el-form-item label="备注" prop="produceXiadanComment">
+                  <el-form-item label="备注" prop="produceXiadanComment" :error="comment">
                     <el-input
                       v-model="produceAddForm.produceXiadanComment"
                       clearable
@@ -54,7 +54,7 @@
                     ></el-input>
                   </el-form-item>
                   <el-form-item style="text-align: right;">
-                    <el-button @click="scope.row.ifpop = false">取消</el-button>
+                    <el-button @click="scope.row.ifpop = false;comment = ''">取消</el-button>
                     <el-button type="primary" @click="submitForm('produceAddForm', scope)">添加</el-button>
                   </el-form-item>
                 </el-form>
@@ -116,18 +116,19 @@ export default {
       }
       callback();
     };
-    var validateMessage = (rule, value, callback) => {
-      if (value === "") {
-        callback(new Error("请填写备注"));
-      } else {
-        callback();
-      }
-    };
+    // var validateMessage = (rule, value, callback) => {
+    //   if (value === "") {
+    //     callback(new Error("请填写备注"));
+    //   } else {
+    //     callback();
+    //   }
+    // };
     return {
       content: [],
       contenting: [],
       state: "",
       pageName: "",
+      comment: '',
       produceAddForm: {
         produceProductId: "",
         produceProductName: "",
@@ -142,7 +143,7 @@ export default {
           { validator: checkXiadan, trigger: "blur" }
         ],
         produceXiadanComment: [
-          { required: true, validator: validateMessage, trigger: "blur" }
+          {required: true, message: '请填写备注'}
         ]
       }
     };
@@ -186,11 +187,13 @@ export default {
       row.ifpop = !row.ifpop;
       this.produceAddForm.produceProductName = row.productName;
       this.produceAddForm.produceProductId = row.productId;
+      console.log('ref',this.$refs['produceAddForm'])
     },
     submitForm(formName, scope) {
       let that = this;
-      console.log("scope", scope);
+      //console.log("scope", scope);
       this.$refs[formName].validate(async (valid, obj) => {
+        console.log('valid', valid, obj)
         if (valid) {
           scope.row.ifpop = false;
           let data = await that.$apis.produce_add(that.produceAddForm);
@@ -198,7 +201,14 @@ export default {
             that.resetForm(formName);
             //that.ifadd = false;
           }
+          this.comment = ''
         } else {
+          console.log('obj', obj)
+          if(obj['produceXiadanComment']) {
+            this.comment = '请填写备注'
+          } else {
+            this.comment = ''
+          }
           //console.log("productForm submit error!!", obj);
           return false;
         }

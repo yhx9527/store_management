@@ -29,7 +29,7 @@
       ref="userInfoTable"
       @selection-change="handleSelectionChange"
       @expand-change="openDetail"
-      max-height="650"
+      max-height="580"
     >
       <el-table-column type="selection" width="55"></el-table-column>
       <el-table-column prop="userInfoTrueName" label="姓名" width="150"></el-table-column>

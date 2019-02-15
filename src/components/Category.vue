@@ -32,7 +32,7 @@
           tooltip-effect="dark"
           style="width: 100%"
           ref="categoryTable"
-          max-height="650"
+          max-height="580"
         >
           <el-table-column type="index" width="80"></el-table-column>
           <el-table-column prop="categoryName" label="类别名称" width="200"></el-table-column>
