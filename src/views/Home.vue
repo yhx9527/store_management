@@ -72,8 +72,7 @@ li.el-submenu.is-active i.aside-icon {
     <el-container class="container">
       <el-aside width="65px" class="aside">
         <el-menu
-          :default-openeds="['/product']"
-          default-active="product"
+          default-active="/produce"
           router
           menu-trigger="hover"
           :collapse="true"
