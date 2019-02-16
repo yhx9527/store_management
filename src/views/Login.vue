@@ -70,7 +70,7 @@ export default {
       this.loading = false;
       if (data) {
         this.$store.commit("setUser", data);
-        this.$router.replace({ path: "product" });
+        this.$router.replace({ path: "produce" });
       }
       console.log("login", data);
     }
