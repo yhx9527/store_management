@@ -43,8 +43,8 @@
       @expand-change="openDetail"
       max-height="580"
     >
-      <el-table-column type="selection" width="55"></el-table-column>
-      <el-table-column prop="productName" label="产品名称" width="150"></el-table-column>
+      <el-table-column type="selection" width="55" fixed></el-table-column>
+      <el-table-column prop="productName" label="产品名称" width="150" fixed></el-table-column>
       <el-table-column prop="categoryName" label="产品类别" width="150"></el-table-column>
       <el-table-column prop="productSize" label="产品尺寸" width="150"></el-table-column>
       <el-table-column prop="productPrice" label="产品价格" width="150"></el-table-column>
@@ -64,7 +64,7 @@
           <span style="margin-left: 10px">{{ scope.row.updateTime }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="操作" v-if="$store.getters.getUserInfo.userInfoRoles !== 'USER'">
+      <el-table-column label="操作" v-if="$store.getters.getUserInfo.userInfoRoles !== 'USER'" fixed="right">
         <template slot-scope="scope">
           <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编 辑</el-button>
           <el-button size="mini" type="success" @click="handlePhoto(scope.$index, scope.row)">加 图</el-button>
