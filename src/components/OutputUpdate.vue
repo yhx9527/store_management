@@ -105,13 +105,17 @@
             variates(){
                 let temp = this.dataPut.row
                 return [
-                    {label: '下单量', value: `当前下单:${temp.outputXiadan}`},
-                    {label: '木工量', value: `当前木工:${temp.outputMugong}`},
-                    {label: '油房量', value: `当前油房:${temp.outputYoufang}`},
-                    {label: '包装量', value: `当前包装:${temp.outputBaozhuang}`},
-                    {label: '北京', value: `当前北京:${temp.outputBeijing}`},
-                    {label: '特定量', value: `当前特定:${temp.outputTeding}`},
-                    {label: '北京特定', value: `当前北京特定:${temp.outputBeijingteding}`}
+                    {label: '下单', value: `当前下单:${temp.outputXiadan}`},
+                    {label: '木工', value: `当前木工:${temp.outputMugong}`},
+                    {label: '油房', value: `当前油房:${temp.outputYoufang}`},
+                    {label: '包装', value: `当前包装:${temp.outputBaozhuang}`},
+                    {label: '特定', value: `当前特定:${temp.outputTeding}`},
+                    {label: '工厂出货', value: `当前工厂出货:${temp.outputFactoryOutput}`},
+                    {label: '特定工厂出货', value: `当前特定工厂出货:${temp.outputTedingFactoryOutput}`},
+                    {label: '北京入库', value: `当前北京入库:${temp.outputBeijingInput}`},
+                    {label: '北京剩余', value: `当前北京剩余:${temp.outputBeijingStock}`},
+                    {label: '北京特定入库', value: `当前北京特定入库:${temp.outputBeijingtedingInput}`},
+                    {label: '北京特定剩余', value: `当前北京特定入库剩余:${temp.outputBeijingtedingStock}`},
                 ]
             }
         },

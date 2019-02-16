@@ -48,6 +48,15 @@ function doOutput(data=[]) {
         item.updateTime = dateParse(item.outputUpdateTime)
         item.outputBaozhuangTotalPrice = '￥' + item.outputBaozhuangTotalPrice
         item.outputTedingTotalPrice = '￥' + item.outputTedingTotalPrice
+        item.outputMugongTotalPrice = '￥' + item.outputMugongTotalPrice
+        item.outputYoufangTotalPrice = '￥' + item.outputYoufangTotalPrice
+        item.outputFactoryOutputTotalPrice = '￥' + item.outputFactoryOutputTotalPrice
+        item.outputTedingFactoryOutputTotalPrice = '￥' + item.outputTedingFactoryOutputTotalPrice
+        item.outputBeijingInputTotalPrice = '￥' + item.outputBeijingInputTotalPrice
+        item.outputBeijingStockTotalPrice = '￥' + item.outputBeijingStockTotalPrice
+        item.outputBeijingtedingInputTotalPrice = '￥' + item.outputBeijingtedingInputTotalPrice
+        item.outputBeijingtedingStockTotalPrice = '￥' + item.outputBeijingtedingStockTotalPrice
+        
     })
     return data
 }

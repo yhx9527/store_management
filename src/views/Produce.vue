@@ -620,6 +620,7 @@ export default {
           (data.variate === "包装量" || data.variate === "特定量") &&
           data.switch1) {
             console.log('等待接口')
+          let res = await this.$apis.produce_output(form);
         } else {
           console.log('包装', data)
           let res = await this.$apis.produce_update(form);

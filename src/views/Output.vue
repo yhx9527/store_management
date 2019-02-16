@@ -67,15 +67,27 @@
         show-overflow-tooltip
         width="150"
       ></el-table-column>
-      <el-table-column prop="outputXiadan" label="下单量" show-overflow-tooltip></el-table-column>
-      <el-table-column prop="outputMugong" label="木工数" show-overflow-tooltip></el-table-column>
-      <el-table-column prop="outputYoufang" label="油房" show-overflow-tooltip></el-table-column>
-      <el-table-column prop="outputBaozhuang" label="包装" show-overflow-tooltip></el-table-column>
-      <el-table-column prop="outputBaozhuangTotalPrice" label="包装总价格" show-overflow-tooltip></el-table-column>
-      <el-table-column prop="outputTeding" label="特定" show-overflow-tooltip></el-table-column>
-      <el-table-column prop="outputTedingTotalPrice" label="特定总价格" show-overflow-tooltip></el-table-column>
-      <el-table-column prop="outputBeijing" label="北京" show-overflow-tooltip></el-table-column>
-      <el-table-column prop="outputBeijingteding" label="北京特定" show-overflow-tooltip></el-table-column>
+      <el-table-column prop="outputXiadan" label="下单量" show-overflow-tooltip align="center"></el-table-column>
+      <el-table-column prop="outputMugong" label="木工" show-overflow-tooltip align="center"></el-table-column>
+      <el-table-column prop="outputMugongTotalPrice" label="木工总金额" show-overflow-tooltip align="center"></el-table-column>
+      <el-table-column prop="outputYoufang" label="油房" show-overflow-tooltip align="center"></el-table-column>
+      <el-table-column prop="outputYoufangTotalPrice" label="油房总金额" show-overflow-tooltip align="center"></el-table-column>
+      <el-table-column prop="outputBaozhuang" label="包装" show-overflow-tooltip align="center"></el-table-column>
+      <el-table-column prop="outputBaozhuangTotalPrice" label="包装总金额" show-overflow-tooltip align="center"></el-table-column> 
+      <el-table-column prop="outputTeding" label="特定" show-overflow-tooltip align="center"></el-table-column>
+      <el-table-column prop="outputTedingTotalPrice" label="特定总金额" show-overflow-tooltip align="center"></el-table-column>
+      <el-table-column prop="outputFactoryOutput" label="工厂出货" show-overflow-tooltip align="center"></el-table-column>
+      <el-table-column prop="outputFactoryOutputTotalPrice" label="工厂出货总金额" show-overflow-tooltip align="center"></el-table-column>
+      <el-table-column prop="outputTedingFactoryOutput" label="特定工厂出货" show-overflow-tooltip align="center"></el-table-column>
+      <el-table-column prop="outputTedingFactoryOutputTotalPrice" label="特定工厂出货总金额" show-overflow-tooltip align="center"></el-table-column>
+      <el-table-column prop="outputBeijingInput" label="北京入库" show-overflow-tooltip align="center"></el-table-column>
+      <el-table-column prop="outputBeijingInputTotalPrice" label="北京入库总金额" show-overflow-tooltip align="center"></el-table-column>
+      <el-table-column prop="outputBeijingStock" label="北京剩余" show-overflow-tooltip align="center"></el-table-column>
+      <el-table-column prop="outputBeijingStockTotalPrice" label="北京剩余总金额" show-overflow-tooltip align="center"></el-table-column>
+      <el-table-column prop="outputBeijingtedingInput" label="北京特定入库" show-overflow-tooltip align="center"></el-table-column>
+      <el-table-column prop="outputBeijingtedingInputTotalPrice" label="北京特定入库总金额" show-overflow-tooltip align="center"></el-table-column>
+      <el-table-column prop="outputBeijingtedingStock" label="北京特定剩余" show-overflow-tooltip align="center"></el-table-column>
+      <el-table-column prop="outputBeijingtedingStockTotalPrice" label="北京特定剩余总金额" show-overflow-tooltip align="center"></el-table-column>
       <el-table-column prop="updateTime" label="最近修改" width="220" align="center">
         <template slot-scope="scope">
           <i class="el-icon-time"></i>
