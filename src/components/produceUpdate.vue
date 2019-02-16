@@ -24,11 +24,11 @@
                         >
                 </el-switch>
             </el-form-item>
-            <el-form-item :label-width="formLabelWidth" style="text-align: left" prop="switch1" v-if="ifSwitch1">
+            <el-form-item :label-width="formLabelWidth" style="text-align: left" prop="switch1" v-if="ifSwitch1" label="工厂出货">
                 <el-switch
                         v-model="form.switch1"
-                        inactive-text="入库北京"
-                        active-text="工厂出货"
+                        inactive-text="否"
+                        active-text="是"
                         >
                 </el-switch>
             </el-form-item>

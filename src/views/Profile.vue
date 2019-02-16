@@ -12,7 +12,7 @@
       class="demo-ruleForm"
     >
       <el-form-item label="用户名" prop="userInfoName">
-        <el-input v-model="userInfoForm.userInfoName"></el-input>
+        <el-input v-model="userInfoForm.userInfoName" disabled=""></el-input>
       </el-form-item>
       <el-form-item label="真实姓名" prop="userInfoTrueName">
         <el-input v-model="userInfoForm.userInfoTrueName"></el-input>
