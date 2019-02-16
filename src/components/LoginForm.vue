@@ -46,10 +46,12 @@
           autofocus
           v-model="loginForm.username"
           autocomplete="on"
+          :focus="'true'"
+          @keyup.enter.native="$refs['pass'].focus()"
         ></el-input>
       </el-form-item>
       <el-form-item label="密码" prop="password">
-        <el-input type="password" placeholder="请输入密码" v-model="loginForm.password"></el-input>
+        <el-input type="password" placeholder="请输入密码" v-model="loginForm.password" @keyup.enter.native="submitForm('loginForm')" ref='pass'></el-input>
       </el-form-item>
       <!--el-checkbox v-model="remember">记住密码</el-checkbox-->
       <el-form-item>
