@@ -369,7 +369,15 @@ export default {
         } else if (index > 1 && index < array.length - 2) {
           if (
             column.property === "outputBaozhuangTotalPrice" ||
-            column.property === "outputTedingTotalPrice"
+            column.property === "outputTedingTotalPrice" ||
+            column.property === "outputMugongTotalPrice" ||
+            column.property === "outputYoufangTotalPrice" ||
+            column.property === "outputFactoryOutputTotalPrice" ||
+            column.property === "outputTedingFactoryOutputTotalPrice" ||
+            column.property === "outputBeijingInputTotalPrice" ||
+            column.property === "outputBeijingStockTotalPrice" ||
+            column.property === "outputBeijingtedingInputTotalPrice" ||
+            column.property === "outputBeijingtedingStockTotalPrice" 
           ) {
             sums[index] = "￥" + this.summary[column.property];
           } else {
