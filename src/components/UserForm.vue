@@ -10,7 +10,7 @@
         label-width="100px"
         class="demo-ruleForm"
       >
-        <el-form-item label="用户名" prop="userInfoName">
+        <el-form-item label="用户名">
           <el-input v-model="userInfoForm.userInfoName" :disabled="!ifadd"></el-input>
         </el-form-item>
         <el-form-item label="真实姓名" prop="userInfoTrueName">
