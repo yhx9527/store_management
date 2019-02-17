@@ -150,7 +150,7 @@
                     {label: '北京特定', value: `当前北京特定:${temp.produceBeijingteding}`},
                     {label: '本地合同量', value: `当前本地合同:${temp.produceBendihetong}`},
                     {label: '外地合同量', value: `当前外地合同:${temp.produceWaidihetong}`},
-                    {label: '等待', value: `当前等待:${temp.produceDeng}`},
+                    // {label: '等待', value: `当前等待:${temp.produceDeng}`},
                 ]
             }
         },

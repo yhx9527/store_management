@@ -1,4 +1,7 @@
 <style scoped>
+  div.el-table th{
+    display: table-cell !important;
+  }
 </style>
 <template>
   <div>
@@ -37,7 +40,6 @@
     <el-table
       :data="contentArray"
       tooltip-effect="dark"
-      style="width: 100%"
       ref="productTable"
       @selection-change="handleSelectionChange"
       @expand-change="openDetail"
@@ -64,7 +66,11 @@
           <span style="margin-left: 10px">{{ scope.row.updateTime }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="操作" v-if="$store.getters.getUserInfo.userInfoRoles !== 'USER'" fixed="right">
+      <el-table-column
+        label="操作"
+        v-if="$store.getters.getUserInfo.userInfoRoles !== 'USER'"
+        fixed="right"
+      >
         <template slot-scope="scope">
           <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编 辑</el-button>
           <el-button size="mini" type="success" @click="handlePhoto(scope.$index, scope.row)">加 图</el-button>

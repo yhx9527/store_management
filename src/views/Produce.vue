@@ -58,15 +58,11 @@
       :data="content"
       tooltip-effect="dark"
 
-      style="width: 100%"
       ref="produceTable"
-      empty-textv="暂无数据"
-      :row-class-name="tableRowClassName"
+      empty-text="暂无数据"
       :summary-method="getSummaries"
       show-summary
-      
       @selection-change="handleSelectionChange"
-      @expand-change="openDetail"
       max-height="580"
     >
       <el-table-column type="selection" width="55" fixed></el-table-column>
@@ -229,7 +225,7 @@
           </template>
         </el-table-column>
       </el-table-column>
-      <el-table-column prop="produceDeng" label="等待" align="center">
+      <!-- <el-table-column prop="produceDeng" label="等待" align="center">
         <template slot-scope="scope">
             <el-popover
               trigger="hover"
@@ -244,6 +240,11 @@
                 class="name-wrapper"
               ><span>{{scope.row['produceDeng']}}</span></div>
             </el-popover>
+          </template>
+      </el-table-column> -->
+      <el-table-column  label="总合同" align="center">
+        <template slot-scope="scope">
+            <span>{{parseInt(scope.row['produceWaidihetong'])+parseInt(scope.row['produceBendihetong'])}}</span>
           </template>
       </el-table-column>
       <el-table-column prop="updateTime" label="最近修改" width="220" align="center">

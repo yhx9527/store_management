@@ -15,8 +15,8 @@
                 <el-card style=" " shadow="hover">
                     <h2 slot="header">{{ifadd ? '产品添加' : '产品编辑'}}</h2>
                     <el-form :model="productForm" status-icon :rules="rules" ref="productForm" label-width="100px" class="demo-ruleForm">
-                        <el-form-item label="产品名称">
-                            <el-input v-model="productForm.productName" disabled></el-input>
+                        <el-form-item label="产品名称" :prop="ifadd ? 'productName' : ''">
+                            <el-input v-model="productForm.productName" :disabled='!ifadd'></el-input>
                         </el-form-item>
                         <el-form-item label="产品价格" prop="productPrice">
                             <el-input v-model.number="productForm.productPrice"></el-input>
