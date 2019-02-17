@@ -26,7 +26,9 @@ export default new Vuex.Store({
     },
     getCategories(state) {
       if(state.categories.length === 0) {
-        state.categories = window.localStorage.getItem('categories')
+        const categories = JSON.parse(window.localStorage.getItem('categories'))
+        categories.unshift({categoryId: '', categoryName: '全部分类'})
+        state.categories = categories
       }
       return state.categories
     }

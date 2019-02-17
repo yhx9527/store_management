@@ -94,7 +94,7 @@
                         { validator: checkPrice, trigger: 'blur' }
                     ]
                 },
-                options: this.$store.state.categories
+                options: this.$store.getters.getCategories
             };
         },
         methods: {
