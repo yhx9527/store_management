@@ -242,11 +242,11 @@
             </el-popover>
           </template>
       </el-table-column> -->
-      <el-table-column  label="总合同" align="center">
+      <!-- <el-table-column  label="总合同" align="center">
         <template slot-scope="scope">
             <span>{{parseInt(scope.row['produceWaidihetong'])+parseInt(scope.row['produceBendihetong'])}}</span>
           </template>
-      </el-table-column>
+      </el-table-column> -->
       <el-table-column prop="updateTime" label="最近修改" width="220" align="center">
         <template slot-scope="scope">
           <i class="el-icon-time"></i>
