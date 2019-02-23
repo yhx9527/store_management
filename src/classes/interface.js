@@ -24,6 +24,7 @@ class Interface {
             if (response.config.ifIntercept) {
                 if (response.data.status === 0) {
                     if (response.config.method !== 'get') {
+                        console.log('msg   ', response.config.msg)
                         Message.success(response.config.msg || '操作成功')
                     }
                     return response.data.data
@@ -142,7 +143,8 @@ class Interface {
                 return qs.stringify(params, {
                     arrayFormat: 'brackets'
                 })
-            }
+            },
+            msg: '用户删除成功'
         },
         {
             msg: '用户删除成功'
@@ -259,7 +261,8 @@ class Interface {
                 return qs.stringify(params, {
                     arrayFormat: 'brackets'
                 })
-            }
+            },
+            msg: '进度删除成功'
         },
         {
             msg: '删除进度成功'
@@ -280,7 +283,8 @@ class Interface {
                 day: day,
                 month: month,
                 year: year
-            }
+            },
+            msg: '所选日期的数据清空成功'
         }, {
             msg: '所选日期的数据清空成功'
         })
@@ -357,7 +361,8 @@ class Interface {
                 return qs.stringify(params, {
                     arrayFormat: 'brackets'
                 })
-            }
+            },
+            msg: '产品删除成功'
         },
         {
             msg: '产品删除成功'
@@ -405,7 +410,8 @@ class Interface {
                 return qs.stringify(params, {
                     arrayFormat: 'brackets'
                 })
-            }
+            },
+            msg: '图片删除成功'
         })
     }
     //批量上传产品图片
