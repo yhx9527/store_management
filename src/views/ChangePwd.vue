@@ -16,6 +16,8 @@
           :type="eyeIcon1=== 'icon-eye' ? 'password' : 'text'"
           v-model="pwdForm.oldPass"
           autocomplete="off"
+          autofocus
+          @keyup.enter.native="$refs['pass1'].focus()"
         >
           <template slot="suffix">
             <i
@@ -31,6 +33,8 @@
           :type="eyeIcon2=== 'icon-eye' ? 'password' : 'text'"
           v-model="pwdForm.newPass"
           autocomplete="off"
+          ref="pass1"
+          @keyup.enter.native="$refs['pass2'].focus()"
         >
           <template slot="suffix">
             <i
@@ -42,7 +46,7 @@
         </el-input>
       </el-form-item>
       <el-form-item label="确认密码" prop="checkPass">
-        <el-input type="password" v-model="pwdForm.checkPass" autocomplete="off"></el-input>
+        <el-input type="password" v-model="pwdForm.checkPass" autocomplete="off" ref="pass2" @keyup.enter.native="submitForm('pwdForm')"></el-input>
       </el-form-item>
       <el-form-item style="text-align: left;">
         <el-button type="primary" @click="submitForm('pwdForm')">确认</el-button>
@@ -104,6 +108,9 @@ export default {
             this.pwdForm.oldPass
           );
           this.resetForm(formName);
+          if(!data) {
+            this.$router.replace('login')
+          }
         } else {
           console.log("error submit!!");
           return false;
